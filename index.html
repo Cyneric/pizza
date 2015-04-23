@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html ng-app="application" ng-controller="indexCtrl">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OGB Pizza</title>
+    <!--dependent stylesheets-->
+    <link rel="stylesheet" type="text/css" href="src/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="src/css/style.css">
+    <link rel="stylesheet" type="text/css" href="src/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="src/css/bootstrap-social.css">
+</head>
+<body>
+    <div id="wrap">
+        <!-- load angular before loading the dom -> caused by injection dependencies -->
+        <script src="src/js/angular.min.js"></script>
+        <div class="row-clearfix">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#/">OGB Pizza</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li ng-class="currentPage=='home'?'active':''"><a href="#/"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                            <li ng-class="currentPage=='menu'?'active':''"><a href="#/menu"><i class="fa fa-reddit fa-fw"></i> Bestellen</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li ng-cloak ng-if="session.isLoggedIn" class="dropdown">
+                                <a href="#/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{session.username}}<span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a style="cursor:pointer" ng-click="logout();">logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form ng-cloak ng-if="!session.isLoggedIn" id="signin" class="navbar-form navbar-right" role="form">
+                            <div style="margin:2px;" class="input-group" ng-cloak ng-show="indicators.showLoginForm">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input type="text" class="form-control" placeholder="Username" ng-model="loginData.username">
+                            </div>
+                            <div style="margin:2px;" class="input-group" ng-cloak ng-show="indicators.showLoginForm">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" class="form-control" placeholder="Passwort" ng-model="loginData.password">
+                            </div>
+                            <button style="margin:2px;" ng-cloak ng-if="!indicators.showLoginForm" class="btn btn-primary" ng-click="toggleLoginForm();">Einloggen</button>
+                            <button style="margin:2px;" ng-cloak ng-if="indicators.showLoginForm && loginData.password && loginData.username" class="btn btn-success" ng-click="login();">Login</button>
+                            <button style="margin:2px;" ng-cloak ng-if="indicators.showLoginForm" class="btn btn-danger" ng-click="cancelLogin();">Abbrechen</button>
+                            <button style="margin:2px;" ng-cloak class="btn btn-info">Registrieren</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div ng-view>
+            <!--AngularJS view content for destination templates-->
+        </div>
+    </div>
+    <div class="row-clearfix">
+        <div id="footer">
+            <div class="banner" align="center">
+                <div class="container">
+                    <div class="row" style="margin-top:2%">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="list-inline banner-social-buttons">
+                                <li style="margin:10px;"><a href="#/"  class="btn btn-default btn-lg" target="_blank"><i class="fa fa-home fa-fw"></i> <span class="network-name">Home</span></a>
+                                </li>
+                                <li style="margin:10px;"><a href="#/menu" class="btn btn-default btn-lg"><i class="fa fa-reddit fa-fw"></i> <span class="network-name">Bestellen</span></a>
+                                </li>
+                                <li style="margin:10px;"><a href="#/imprint" class="btn btn-default btn-lg"><i class="fa fa-info fa-fw" target="_blank"></i> <span class="network-name">Impressum</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--dependent scripts-->
+    <script src="src/js/angular-route.js"></script>
+    <script src="src/js/jquery-1.11.1.min.js"></script>
+    <script src="src/js/bootstrap.min.js"></script>
+    <script src="application/application.js"></script>
+    <script src="application/providers.js"></script>
+    <script src="application/directives.js"></script>
+    <script src="application/controllers.js"></script>
+    <script src="application/factories.js"></script>
+    <script src="src/js/ui-bootstrap-0.11.2.min.js"></script>
+</body>
+</html>
