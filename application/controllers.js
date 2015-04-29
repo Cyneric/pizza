@@ -55,6 +55,7 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
                     if(data.username){
                         $scope.fetchSession();
                         $scope.loginData = {};
+                        $scope.indicators.showLoginForm = false;
                     }else alert("benutzer oder passwort falsch!");
                 });
 
@@ -95,6 +96,27 @@ app.controller('imprintCtrl', ['$scope', '$rootScope', function($scope, $rootSco
 app.controller('menuCtrl', ['$scope', '$rootScope', function($scope, $rootScope){
 
     $rootScope.setCurrentPage('menu');
+
+    //show pizza as default article group
+    $scope.currentArticleGroup = 1;
+
+    $scope.selectArticleGroup = function(id){
+        $scope.currentArticleGroup = id;
+    }
+
+}]);
+
+//menu controller
+app.controller('adminCtrl', ['$scope', '$rootScope', function($scope, $rootScope){
+
+    $rootScope.setCurrentPage('admin');
+
+    //show pizza as default article group
+    $scope.currentArticleGroup = 1;
+
+    $scope.selectArticleGroup = function(id){
+        $scope.currentArticleGroup = id;
+    }
 
 }]);
 

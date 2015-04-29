@@ -26,6 +26,7 @@ body {
     overflow: hidden;
     height: 200px;
 }
+
 .pizza_hover:hover .caption{
     opacity: 1;
     transform: translateY(-150px);
@@ -34,6 +35,7 @@ body {
     -ms-transform:translateY(-150px);
     -o-transform:translateY(-150px);
 }
+
 .pizza_hover img{
     z-index: 4;
 }
@@ -48,6 +50,7 @@ body {
     transition:all 0.3s ease-in-out;
     width: 100%;
 }
+
 .pizza_hover .blur{
     background-color: rgba(0,0,0,0.7);
     height: 300px;
@@ -55,6 +58,7 @@ body {
     position: absolute;
     width: 100%;
 }
+
 .pizza_hover .caption-text{
     z-index: 10;
     color: #fff;
@@ -65,3 +69,89 @@ body {
     width: 100%;
 }
 
+.navbar-login {
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session {
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size {
+    font-size: 87px;
+}
+
+.btn-arrow-right,
+.btn-arrow-left {
+    position: relative;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.btn-arrow-right {
+    padding-left: 36px;
+}
+
+.btn-arrow-left {
+    padding-right: 36px;
+}
+
+.btn-arrow-right:before,
+.btn-arrow-right:after,
+.btn-arrow-left:before,
+.btn-arrow-left:after {
+    content:"";
+    position: absolute;
+    top: 5px;
+    width: 22px;
+    height: 22px;
+    background: inherit;
+    border: inherit;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 0px 4px 0px 0px;
+    -webkit-border-radius: 0px 4px 0px 0px;
+    -moz-border-radius: 0px 4px 0px 0px;
+}
+
+.btn-arrow-right:before,
+.btn-arrow-right:after {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+}
+
+.btn-arrow-left:before,
+.btn-arrow-left:after {
+    transform: rotate(225deg);
+    -webkit-transform: rotate(225deg);
+    -moz-transform: rotate(225deg);
+    -o-transform: rotate(225deg);
+    -ms-transform: rotate(225deg);
+}
+
+.btn-arrow-right:before,
+.btn-arrow-left:before {
+    left: -11px;
+}
+
+.btn-arrow-right:after,
+.btn-arrow-left:after {
+    right: -11px;
+}
+
+.btn-arrow-right:after,
+.btn-arrow-left:before {
+    z-index: 1;
+}
+
+.btn-arrow-right:before,
+.btn-arrow-left:after {
+    background-color: white;
+}

@@ -32,14 +32,14 @@
                             <li ng-class="currentPage=='menu'?'active':''"><a href="#/menu"><i class="fa fa-reddit fa-fw"></i> Bestellen</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
+                           <!-- <li ng-cloak ng-if="session.data.is_admin > 0" ng-class="currentPage=='admin'?'active':''"><a href="#/admin"><i class="fa fa-cog fa-spin"></i> Adminpanel</a></li> -->
                             <li ng-cloak ng-if="session.isLoggedIn" class="dropdown">
-                                <a href="#/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{session.username}}<span class="caret"></span></a>
+                                <a href="#/" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-fw"></i> {{session.username}}<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
+                                    <li ng-cloak ng-if="session.data.is_admin > 0" ng-class="currentPage=='admin'?'active':''"><a href="#/admin"><i class="fa fa-cog fa-spin"></i> Adminpanel</a></li>
+                                    <li><a href="#"><i class="fa fa-cog fa-edit"></i> Bearbeiten</a></li>
                                     <li class="divider"></li>
-                                    <li><a style="cursor:pointer" ng-click="logout();">logout</a></li>
+                                    <li><a style="cursor:pointer" ng-click="logout();"><i class="fa fa-sign-out"></i> logout</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -65,7 +65,7 @@
             <!--AngularJS view content for destination templates-->
         </div>
     </div>
-    <div class="row-clearfix">
+    <div ng-if="currentPage!='admin'" class="row-clearfix">
         <div id="footer">
             <div class="banner" align="center">
                 <div class="container">

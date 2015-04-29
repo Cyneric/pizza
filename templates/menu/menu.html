@@ -1,133 +1,137 @@
 <div class="row-clearfix">
-    <div class="col-md-12 column">
-        <h3 class="text text-muted">Unsere Pizza Klassiker: </h3>
-    </div>
-</div>
-<div class="row-clearfix">
-    <div class="col-md-3">
-        <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
-            <p style="text-align:center;">
-                <img src="../../../pizza/src/img/pizza/salami.jpeg" class="img-responsive">
-            </p>
-            <div class="caption">
-                <div class="blur"></div>
-                <div class="caption-text">
-                    <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Salami</h3>
-                    <p>Mit frischer Salami und reichlich Käse</p>
-                    <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
-            <p style="text-align:center;">
-                <img src="../../../pizza/src/img/pizza/thunfisch.jpeg" class="img-responsive">
-            </p>
-            <div class="caption">
-                <div class="blur"></div>
-                <div class="caption-text">
-                    <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Thunfisch</h3>
-                    <p>Mit viel Thunfisch und Zwiebeln</p>
-                    <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
-            <p style="text-align:center;">
-                <img src="../../../pizza/src/img/pizza/schinken.jpeg" class="img-responsive">
-            </p>
-            <div class="caption">
-                <div class="blur"></div>
-                <div class="caption-text">
-                    <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Schinken</h3>
-                    <p>Mit Schinken, Käse und fruchtiger Tomatensauce</p>
-                    <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
-            <p style="text-align:center;">
-                <img src="../../../pizza/src/img/pizza/mozzarella.jpeg" class="img-responsive">
-            </p>
-            <div class="caption">
-                <div class="blur"></div>
-                <div class="caption-text">
-                    <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Mozzarella</h3>
-                    <p>Mit frischem Mozarella und Basilikum</p>
-                    <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
-                </div>
-            </div>
-        </div>
+    <div class="col-md-12 column" style="margin-top:2%;">
+        <button type="button" class="btn btn-default btn-arrow-right" ng-class="currentArticleGroup == 1?'active':''" ng-click="selectArticleGroup(1);"><strong>Pizza</strong></button>
+        <button type="button" class="btn btn-default btn-arrow-right" ng-class="currentArticleGroup == 2?'active':''" ng-click="selectArticleGroup(2);"><strong>Salat</strong></button>
+        <button type="button" class="btn btn-default btn-arrow-right" ng-class="currentArticleGroup == 3?'active':''" ng-click="selectArticleGroup(3);"><strong>Getränke</strong></button>
     </div>
 </div>
 
-
-<div class="row-clearfix">
-    <div class="col-md-3">
-        <div class="pizza_hover " style="background-color:#cccccc;margin-top:80px;">
-            <p style="text-align:center;">
-                <img src="../../../pizza/src/img/pizza/spezial.jpeg" class="img-responsive">
-            </p>
-            <div class="caption">
-                <div class="blur"></div>
-                <div class="caption-text">
-                    <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Spezial</h3>
-                    <p>Mit scharfer Chilli-Salami, Peperoni und frischen Champingnons</p>
-                    <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+<!-- article group 1 - pizza -->
+<div ng-if="currentArticleGroup == 1">
+    <div class="row-clearfix">
+        <div class="col-md-3">
+            <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
+                <p style="text-align:center;">
+                    <img src="../../../pizza/src/img/pizza/salami.jpeg" class="img-responsive">
+                </p>
+                <div class="caption">
+                    <div class="blur"></div>
+                    <div class="caption-text">
+                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Salami</h3>
+                        <p>Mit frischer Salami und reichlich Käse</p>
+                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
+                <p style="text-align:center;">
+                    <img src="../../../pizza/src/img/pizza/thunfisch.jpeg" class="img-responsive">
+                </p>
+                <div class="caption">
+                    <div class="blur"></div>
+                    <div class="caption-text">
+                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Thunfisch</h3>
+                        <p>Mit viel Thunfisch und Zwiebeln</p>
+                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
+                <p style="text-align:center;">
+                    <img src="../../../pizza/src/img/pizza/schinken.jpeg" class="img-responsive">
+                </p>
+                <div class="caption">
+                    <div class="blur"></div>
+                    <div class="caption-text">
+                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Schinken</h3>
+                        <p>Mit Schinken, Käse und fruchtiger Tomatensauce</p>
+                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
+                <p style="text-align:center;">
+                    <img src="../../../pizza/src/img/pizza/mozzarella.jpeg" class="img-responsive">
+                </p>
+                <div class="caption">
+                    <div class="blur"></div>
+                    <div class="caption-text">
+                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Mozzarella</h3>
+                        <p>Mit frischem Mozarella und Basilikum</p>
+                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="pizza_hover " style="background-color:#cccccc;margin-top:80px;">
-            <p style="text-align:center;">
-                <img src="../../../pizza/src/img/pizza/scampi.jpeg" class="img-responsive">
-            </p>
-            <div class="caption">
-                <div class="blur"></div>
-                <div class="caption-text">
-                    <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Scampi</h3>
-                    <p>Mit Scampis, fruchtigen Tomaten und Knoblauch</p>
-                    <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+    <!-- next row -->
+    <div class="row-clearfix">
+        <div class="col-md-3">
+            <div class="pizza_hover " style="background-color:#cccccc;margin-top:80px;">
+                <p style="text-align:center;">
+                    <img src="../../../pizza/src/img/pizza/spezial.jpeg" class="img-responsive">
+                </p>
+                <div class="caption">
+                    <div class="blur"></div>
+                    <div class="caption-text">
+                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Spezial</h3>
+                        <p>Mit scharfer Chilli-Salami, Peperoni und frischen Champingnons</p>
+                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-3">
-        <div class="pizza_hover " style="background-color:#cccccc;margin-top:80px;">
-            <p style="text-align:center;">
-                <img src="../../../pizza/src/img/pizza/hawai.jpeg" class="img-responsive">
-            </p>
-            <div class="caption">
-                <div class="blur"></div>
-                <div class="caption-text">
-                    <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Hawai</h3>
-                    <p>Der Klassiker mit Schinken und Ananas</p>
-                    <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+        <div class="col-md-3">
+            <div class="pizza_hover " style="background-color:#cccccc;margin-top:80px;">
+                <p style="text-align:center;">
+                    <img src="../../../pizza/src/img/pizza/scampi.jpeg" class="img-responsive">
+                </p>
+                <div class="caption">
+                    <div class="blur"></div>
+                    <div class="caption-text">
+                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Scampi</h3>
+                        <p>Mit Scampis, fruchtigen Tomaten und Knoblauch</p>
+                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-3">
-        <div class="pizza_hover " style="background-color:#cccccc;margin-top:80px;">
-            <p style="text-align:center;">
-                <img src="../../../pizza/src/img/pizza/mediterran.jpeg" class="img-responsive">
-            </p>
-            <div class="caption">
-                <div class="blur"></div>
-                <div class="caption-text">
-                    <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Mediterran</h3>
-                    <p>Mediterran mit knackigem Ruccola, firschen Tomaten und zartem Serrano-Schinken</p>
-                    <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+        <div class="col-md-3">
+            <div class="pizza_hover " style="background-color:#cccccc;margin-top:80px;">
+                <p style="text-align:center;">
+                    <img src="../../../pizza/src/img/pizza/hawai.jpeg" class="img-responsive">
+                </p>
+                <div class="caption">
+                    <div class="blur"></div>
+                    <div class="caption-text">
+                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Hawai</h3>
+                        <p>Der Klassiker mit Schinken und Ananas</p>
+                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="pizza_hover " style="background-color:#cccccc;margin-top:80px;">
+                <p style="text-align:center;">
+                    <img src="../../../pizza/src/img/pizza/mediterran.jpeg" class="img-responsive">
+                </p>
+                <div class="caption">
+                    <div class="blur"></div>
+                    <div class="caption-text">
+                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Mediterran</h3>
+                        <p>Mediterran mit knackigem Ruccola, firschen Tomaten und zartem Serrano-Schinken</p>
+                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
