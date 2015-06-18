@@ -1,8 +1,19 @@
+<!--
 <div class="row-clearfix">
     <div class="col-md-12 column" style="margin-top:2%;">
         <button type="button" class="btn btn-default btn-arrow-right" ng-class="currentArticleGroup == 1?'active':''" ng-click="selectArticleGroup(1);"><strong>Pizza</strong></button>
         <button type="button" class="btn btn-default btn-arrow-right" ng-class="currentArticleGroup == 2?'active':''" ng-click="selectArticleGroup(2);"><strong>Salat</strong></button>
         <button type="button" class="btn btn-default btn-arrow-right" ng-class="currentArticleGroup == 3?'active':''" ng-click="selectArticleGroup(3);"><strong>Getränke</strong></button>
+    </div>
+</div>
+-->
+<div class="row-clearfix">
+    <div class="col-md-12 column" style="margin-top:2%;">
+        <div class="btn-group btn-breadcrumb">
+            <a class="btn btn-default" ng-class="currentArticleGroup == 1?'active':''" ng-click="selectArticleGroup(1);"><i class="fa fa-cutlery"></i> Pizza</a>
+            <a class="btn btn-default" ng-class="currentArticleGroup == 2?'active':''" ng-click="selectArticleGroup(2);"><i class="fa fa-leaf"></i> Salat</a>
+            <a class="btn btn-default" ng-class="currentArticleGroup == 3?'active':''" ng-click="selectArticleGroup(3);"><i class="fa fa-glass"></i> Getränke</a>
+        </div>
     </div>
 </div>
 
@@ -128,4 +139,3 @@
         </div>
     </div>
 </modal>
-git
