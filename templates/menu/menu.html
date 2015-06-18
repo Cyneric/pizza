@@ -9,125 +9,17 @@
 <!-- article group 1 - pizza -->
 <div ng-if="currentArticleGroup == 1">
     <div class="row-clearfix">
-        <div class="col-md-3">
+        <div class="col-md-3" ng-repeat="article in data.articles" ng-if="article.article_type_id == 1">
             <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
                 <p style="text-align:center;">
-                    <img src="../../../pizza/src/img/pizza/salami.jpeg" class="img-responsive">
+                    <img src="../../../pizza/src/img/pizza/{{article.image}}.jpeg" class="img-responsive">
                 </p>
                 <div class="caption">
                     <div class="blur"></div>
                     <div class="caption-text">
-                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Salami</h3>
-                        <p>Mit frischer Salami und reichlich Käse</p>
-                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
-                <p style="text-align:center;">
-                    <img src="../../../pizza/src/img/pizza/thunfisch.jpeg" class="img-responsive">
-                </p>
-                <div class="caption">
-                    <div class="blur"></div>
-                    <div class="caption-text">
-                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Thunfisch</h3>
-                        <p>Mit viel Thunfisch und Zwiebeln</p>
-                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
-                <p style="text-align:center;">
-                    <img src="../../../pizza/src/img/pizza/schinken.jpeg" class="img-responsive">
-                </p>
-                <div class="caption">
-                    <div class="blur"></div>
-                    <div class="caption-text">
-                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Schinken</h3>
-                        <p>Mit Schinken, Käse und fruchtiger Tomatensauce</p>
-                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
-                <p style="text-align:center;">
-                    <img src="../../../pizza/src/img/pizza/mozzarella.jpeg" class="img-responsive">
-                </p>
-                <div class="caption">
-                    <div class="blur"></div>
-                    <div class="caption-text">
-                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Mozzarella</h3>
-                        <p>Mit frischem Mozarella und Basilikum</p>
-                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- next row -->
-    <div class="row-clearfix">
-        <div class="col-md-3">
-            <div class="pizza_hover " style="background-color:#cccccc;margin-top:80px;">
-                <p style="text-align:center;">
-                    <img src="../../../pizza/src/img/pizza/spezial.jpeg" class="img-responsive">
-                </p>
-                <div class="caption">
-                    <div class="blur"></div>
-                    <div class="caption-text">
-                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Spezial</h3>
-                        <p>Mit scharfer Chilli-Salami, Peperoni und frischen Champingnons</p>
-                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="pizza_hover " style="background-color:#cccccc;margin-top:80px;">
-                <p style="text-align:center;">
-                    <img src="../../../pizza/src/img/pizza/scampi.jpeg" class="img-responsive">
-                </p>
-                <div class="caption">
-                    <div class="blur"></div>
-                    <div class="caption-text">
-                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Scampi</h3>
-                        <p>Mit Scampis, fruchtigen Tomaten und Knoblauch</p>
-                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="pizza_hover " style="background-color:#cccccc;margin-top:80px;">
-                <p style="text-align:center;">
-                    <img src="../../../pizza/src/img/pizza/hawai.jpeg" class="img-responsive">
-                </p>
-                <div class="caption">
-                    <div class="blur"></div>
-                    <div class="caption-text">
-                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Hawai</h3>
-                        <p>Der Klassiker mit Schinken und Ananas</p>
-                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="pizza_hover " style="background-color:#cccccc;margin-top:80px;">
-                <p style="text-align:center;">
-                    <img src="../../../pizza/src/img/pizza/mediterran.jpeg" class="img-responsive">
-                </p>
-                <div class="caption">
-                    <div class="blur"></div>
-                    <div class="caption-text">
-                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">Mediterran</h3>
-                        <p>Mediterran mit knackigem Ruccola, firschen Tomaten und zartem Serrano-Schinken</p>
-                        <a class=" btn btn-default" style="cursor:pointer;"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">{{article.name}} <span class="label label-danger center pull-right">ab {{article.price}} €</span></h3>
+                        <p>{{article.description}}</p>
+                        <a class=" btn btn-default" style="cursor:pointer;" ng-click="selectArticle(article.id);toggleIngredientsModal();"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
                     </div>
                 </div>
             </div>
@@ -135,3 +27,105 @@
     </div>
 </div>
 
+<!-- article group 2 - salad -->
+<div ng-if="currentArticleGroup == 2">
+    <div class="row-clearfix">
+        <div class="col-md-3" ng-repeat="article in data.articles" ng-if="article.article_type_id == 2">
+            <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
+                <p style="text-align:center;">
+                    <img src="../../../pizza/src/img/salad/{{article.image}}.jpeg" class="img-responsive">
+                </p>
+                <div class="caption">
+                    <div class="blur"></div>
+                    <div class="caption-text">
+                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">{{article.name}} <span class="label label-danger center pull-right">{{article.price}} €</span></h3>
+                        <p>{{article.description}}</p>
+                        <a class=" btn btn-default" style="cursor:pointer;" ng-click="addItemToCart();"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- article group 3 - drinks -->
+<div ng-if="currentArticleGroup == 3">
+    <div class="row-clearfix">
+        <div class="col-md-3" ng-repeat="article in data.articles" ng-if="article.article_type_id == 3">
+            <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
+                <p style="text-align:center;">
+                    <img src="../../../pizza/src/img/drinks/{{article.image}}.jpeg" class="img-responsive">
+                </p>
+                <div class="caption">
+                    <div class="blur"></div>
+                    <div class="caption-text">
+                        <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">{{article.name}} <span class="label label-danger center pull-right">{{article.price}} €</span></h3>
+                        <p>{{article.description}}</p>
+                        <a class=" btn btn-default" style="cursor:pointer;" ng-click="addItemToCart();"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<modal title="Zutaten w&auml;hlen" visible="indicators.showIngredients">
+    <div class="row clearfix">
+        <div class="col-md-4 column">
+            <img src="../../../pizza/src/img/pizza/{{data.articles[indicators.currentSelectedArticle].image}}.jpeg" class="img-responsive img-rounded">
+        </div>
+        <div class="col-md-8 column">
+            <h4 class="text-muted">Pizza {{data.articles[indicators.currentSelectedArticle].name}}</h4>
+            <h5 class="text-muted">{{data.articles[indicators.currentSelectedArticle].description}}</h5>
+        </div>
+    </div>
+    <hr>
+    <div class="row clearfix" style="margin-top:2%;">
+        <div class="col-md-12 column">
+            Gr&ouml;&szlig;e ausw&auml;hlen:
+            <hr>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-4 column" ng-repeat="ingredient in data.ingredients" ng-if="ingredient.id <= 3">
+            <div class="funkyradio">
+                <div class="funkyradio-success" ng-click="toggleIngredient(ingredient.id)">
+                    <input type="checkbox" ng-checked="ingredient.selected"/>
+                    <label>
+                        <span class="pull-left">{{ingredient.name}} </span>
+                        <span class="pull-right" ng-class="ingredient.price > 0 ? 'text-danger':'text-success'" style="margin-right:10px;">
+                            <strong>{{ingredient.price > 0 ? '+ '+ingredient.price+' €' : 'gratis'}}</strong>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row clearfix" style="margin-top:2%;">
+        <div class="col-md-12 column">
+            Extra-Zutaten ausw&auml;hlen:
+            <hr>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-4 column" ng-repeat="ingredient in data.ingredients" ng-if="ingredient.id > 3">
+            <div class="funkyradio">
+                <div class="funkyradio-success" ng-click="toggleIngredient(ingredient.id)">
+                    <input type="checkbox" ng-checked="ingredient.selected"/>
+                    <label>
+                        <span class="pull-left">{{ingredient.name}} </span>
+                        <span class="pull-right" ng-class="ingredient.price > 0 ? 'text-danger':'text-success'" style="margin-right:10px;">
+                            <strong>{{ingredient.price > 0 ? '+ '+ingredient.price+' €' : 'gratis'}}</strong>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</modal>
+git

@@ -40,7 +40,7 @@ class IndexController{
 
             $query = "SELECT * FROM users WHERE username = '".$user."'";
 
-            $data = DbController::fetch($query);
+            $data = DbController::fetchOne($query);
 
             if($data['password'] == $pass){
                 session_start();

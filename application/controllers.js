@@ -93,20 +93,65 @@ app.controller('imprintCtrl', ['$scope', '$rootScope', function($scope, $rootSco
 }]);
 
 //menu controller
-app.controller('menuCtrl', ['$scope', '$rootScope', function($scope, $rootScope){
+app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location){
 
     $rootScope.setCurrentPage('menu');
 
     //show pizza as default article group
     $scope.currentArticleGroup = 1;
 
+    //define data object
+    $scope.data = {};
+
+    //define indicators object
+    $scope.indicators = {};
+
     $scope.selectArticleGroup = function(id){
         $scope.currentArticleGroup = id;
     }
 
+    $scope.indicators.showIngredients = false;
+    $scope.toggleIngredientsModal = function(){
+        $scope.getIngredients();
+        $scope.indicators.showIngredients = !$scope.indicators.showIngredients;
+    }
+
+    //function to fetch all articles
+    $scope.getArticles = function(){
+        $http.get('http://'+$location.host()+'/pizza/backend/MenuController.php?getArticles').
+            success(function(data) {
+                $scope.data.articles = data;
+                console.log(data);
+            });
+    }
+
+    //function to fetch all ingredients
+    $scope.getIngredients = function(){
+        $http.get('http://'+$location.host()+'/pizza/backend/MenuController.php?getIngredients').
+            success(function(data) {
+                $scope.data.ingredients = data;
+                console.log(data);
+            });
+    }
+
+    //fetch data
+    $scope.getArticles();
+    $scope.getIngredients();
+
+    //function to select current item from menu overview
+    $scope.selectArticle = function (id){
+        $scope.indicators.currentSelectedArticle = id;
+    }
+
+    //function to select / unselect ingredient
+    $scope.toggleIngredient = function(id){
+        $scope.data.ingredients[id].selected = !$scope.data.ingredients[id].selected;
+        console.log($scope.data.ingredients[id]);
+    }
+
 }]);
 
-//menu controller
+//admin controller
 app.controller('adminCtrl', ['$scope', '$rootScope', function($scope, $rootScope){
 
     $rootScope.setCurrentPage('admin');
