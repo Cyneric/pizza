@@ -149,6 +149,30 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
         console.log($scope.data.ingredients[id]);
     }
 
+    //function to add ingredients to current selected article and move to shopping cart
+    $scope.addIngredientsToArticle = function(){
+        $scope.indicators.tempArticle = {};
+        $scope.indicators.tempArticle = $scope.data.articles[$scope.indicators.currentSelectedArticle];
+        $scope.indicators.tempArticle.ingredients = [];
+
+        //we only want selected ingredients in our article object
+        angular.forEach($scope.data.ingredients, function(value, key) {
+                if(value.selected){
+                   $scope.indicators.tempArticle.ingredients[key] = $scope.data.ingredients[key];
+                }
+        });
+
+        // $scope.indicators.tempArticle.ingredients = $scope.data.ingredients;
+        $scope.indicators.shoppingCart.push($scope.indicators.tempArticle);
+    }
+
+    //adding an article to shopping cart
+    $scope.indicators.shoppingCart = [];
+    $scope.addItemToCart = function(id){
+        console.log(id);
+        $scope.indicators.shoppingCart.push($scope.data.articles[id]);
+    }
+
 }]);
 
 //admin controller

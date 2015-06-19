@@ -51,7 +51,7 @@
                     <div class="caption-text">
                         <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">{{article.name}} <span class="label label-danger center pull-right">{{article.price}} €</span></h3>
                         <p>{{article.description}}</p>
-                        <a class=" btn btn-default" style="cursor:pointer;" ng-click="addItemToCart();"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                        <a class=" btn btn-default" style="cursor:pointer;" ng-click="addItemToCart(article.id);"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                     <div class="caption-text">
                         <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">{{article.name}} <span class="label label-danger center pull-right">{{article.price}} €</span></h3>
                         <p>{{article.description}}</p>
-                        <a class=" btn btn-default" style="cursor:pointer;" ng-click="addItemToCart();"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                        <a class=" btn btn-default" style="cursor:pointer;" ng-click="addItemToCart(article.id);"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
                     </div>
                 </div>
             </div>
@@ -138,4 +138,13 @@
             </div>
         </div>
     </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <a class=" btn btn-default" style="cursor:pointer;" ng-click="addIngredientsToArticle();"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+        </div>
+    </div>
 </modal>
+
+
+
+<!--<pre>{{indicators.shoppingCart | json}}</pre>-->
