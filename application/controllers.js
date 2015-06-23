@@ -13,6 +13,7 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
 	$scope.indicators.showLoginForm = false;
 	$scope.loginData = {};
     $scope.session = {};
+    $scope.data = {};
 
 	//function to toggle inline login form in navigation
 	$scope.toggleLoginForm = function(){
@@ -87,6 +88,43 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
         angular.forEach($rootScope.shoppingCart, function(value, key) {
                 $scope.consolidatedPrice += parseFloat(value.price);
                 $scope.consolidatedPrice = Math.round($scope.consolidatedPrice * 100)/100;
+        });
+    }
+
+    //function to toggle register form
+    $scope.indicators.showRegisterModal = false;
+    $scope.toggleRegisterModal = function(){
+        $scope.indicators.showRegisterModal = !$scope.indicators.showRegisterModal;
+    }
+
+    //define registration form object
+    $scope.data.register = {
+        username:"",
+        first_name:"",
+        last_name:"",
+        street_name:"",
+        street_number:"",
+        location:"",
+        zip:"",
+        phone:"",
+        password:"",
+        email:""
+    };
+
+    //functionality to validate form input
+    $scope.registrationFormCompleted = false;
+    $scope.$watchCollection('data.register', function() {
+        $scope.evalRegistrationForm();
+    });
+
+    $scope.evalRegistrationForm = function(){
+        $scope.registrationFormCompleted = true;
+        angular.forEach($scope.data.register, function(value, key) {
+            console.log(value);
+            if(!value){
+                console.log("kein inhalt");
+                $scope.registrationFormCompleted = false;
+            }
         });
     }
 

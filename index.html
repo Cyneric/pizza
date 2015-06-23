@@ -88,7 +88,7 @@
                             <button style="margin:2px;" ng-cloak ng-if="!indicators.showLoginForm" class="btn btn-primary" ng-click="toggleLoginForm();">Einloggen</button>
                             <button style="margin:2px;" ng-cloak ng-if="indicators.showLoginForm && loginData.password && loginData.username" class="btn btn-success" ng-click="login();">Login</button>
                             <button style="margin:2px;" ng-cloak ng-if="indicators.showLoginForm" class="btn btn-danger" ng-click="cancelLogin();">Abbrechen</button>
-                            <button style="margin:2px;" ng-cloak class="btn btn-info">Registrieren</button>
+                            <button style="margin:2px;" ng-cloak class="btn btn-info" ng-click="toggleRegisterModal();">Registrieren</button>
                         </form>
                     </div>
                 </div>
@@ -168,8 +168,81 @@
                         </tr>
                     </tbody>
                 </table>
+                <button class="btn btn-success btn-sm" style="width:100%;"><i class="fa fa-cart-arrow-down"></i> Bestellen</button>
             </div>
         </div>
+    </modal>
+
+
+    <modal title="Registrieren" visible="indicators.showRegisterModal">
+        <div class="row clearfix">
+            <div class="col-md-12 column" style="margin-bottom:3%;">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                        <form role="form">
+                            <h2><small>OGB-Pizza Benutzerkonto erstellen</small></h2>
+                            <hr>
+                            <div class="form-group">
+                                <input type="text" ng-model="data.register.username" class="form-control input-sm" placeholder="Benutzername">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" ng-model="data.register.email" class="form-control input-sm" placeholder="Email Addresse">
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" ng-model="data.register.first_name" class="form-control input-sm" placeholder="Vorname">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" ng-model="data.register.last_name" class="form-control input-sm" placeholder="Nachname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-10 col-sm-10 col-md-10">
+                                    <div class="form-group">
+                                        <input type="text" ng-model="data.register.street_name" class="form-control input-sm" placeholder="Straße">
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2">
+                                    <div class="form-group">
+                                        <input type="text" ng-model="data.register.street_number" class="form-control input-sm" placeholder="Nr.">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" ng-model="data.register.zip" class="form-control input-sm" placeholder="Postleitzahl">
+                                    </div>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <div class="form-group">
+                                        <input type="text" ng-model="data.register.location" class="form-control input-sm" placeholder="Ort">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" ng-model="data.register.phone" class="form-control input-sm" placeholder="Telefonnummner">
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <input type="password" ng-model="data.register.password" class="form-control input-sm" placeholder="Passwort">
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12">
+                                    <btn class="btn btn-sm btn-primary btn-block" ng-class="!registrationFormCompleted ? 'disabled':''"><i class="fa fa-user-plus"></i> Registrieren</btn>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+       </div>
     </modal>
 
     <!--dependent scripts-->
