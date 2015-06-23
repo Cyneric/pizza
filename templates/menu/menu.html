@@ -94,7 +94,7 @@
             <h5 class="text-muted">{{articles[indicators.currentSelectedArticle].description}}</h5>
         </div>
         <div class="col-md-2 column">
-            <span class="label label-warning" style="font-size:150%;">{{currentPrice}} €</span>
+            <span class="label label-danger" style="font-size:150%;">{{currentPrice}} €</span>
         </div>
     </div>
     <hr>
@@ -107,12 +107,12 @@
     <div class="row clearfix">
         <div class="col-md-4 column" ng-repeat="ingredient in ingredients" ng-if="ingredient.id <= 3">
             <div class="funkyradio">
-                <div class="funkyradio-success" ng-click="toggleIngredient(ingredient.id);calcCurrentPrice();">
+                <div class="funkyradio-success" ng-click="toggleIngredient(ingredient.id);calcCurrentPrice();evalSize(ingredient.id);">
                     <input type="checkbox" ng-checked="ingredient.selected"/>
                     <label>
                         <span class="pull-left">{{ingredient.name}} </span>
                         <span class="pull-right" ng-class="ingredient.price > 0 ? 'text-danger':'text-success'" style="margin-right:10px;">
-                            <strong>{{ingredient.price > 0 ? '+ '+ingredient.price+' €' : 'gratis'}}</strong>
+                            <strong>{{ingredient.price > 0 ? '+ '+ingredient.price+' €' : ''}}</strong>
                         </span>
                     </label>
                 </div>
@@ -151,4 +151,4 @@
 
 
 
-<pre>{{shoppingCart | json}}</pre>
+<!--<pre>{{shoppingCart | json}}</pre>-->

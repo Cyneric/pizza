@@ -14,19 +14,16 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
 	$scope.loginData = {};
     $scope.session = {};
 
-
 	//function to toggle inline login form in navigation
 	$scope.toggleLoginForm = function(){
 		$scope.indicators.showLoginForm = !$scope.indicators.showLoginForm;
 	}
-
 
 	//function to cancel login 
 	$scope.cancelLogin = function(){
 		$scope.indicators.showLoginForm = false;
 		$scope.loginData = {};
 	}
-
 
 	//function to fetch session data from webserver
 	$scope.fetchSession = function(){
@@ -36,10 +33,8 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
 		});
 	}
 
-
 	//fetch session on load
 	$scope.fetchSession();
-
 
     //login function
     $scope.login = function(){
@@ -63,7 +58,6 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
 
     }
 
-
     //logout function
     $scope.logout = function(){
         $http.get('http://'+$location.host()+'/pizza/backend/IndexController.php?logout').
@@ -73,6 +67,28 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
             });
     }
 
+    //function to remove article from shopping cart
+    $scope.removeArticleFromCart = function(id){
+        console.log(id);
+        console.log($rootScope.shoppingCart[id]);
+        $rootScope.shoppingCart.splice(id, 1);
+        $scope.calcConsolidatedPrice();
+    }
+
+    //function to toggle shopping cart
+    $scope.indicators.showCart = false;
+    $scope.toggleCart = function(){
+        $scope.indicators.showCart = !$scope.indicators.showCart;
+    }
+
+    //function to calc consolidated price
+    $scope.calcConsolidatedPrice = function(){
+        $scope.consolidatedPrice = 0;
+        angular.forEach($rootScope.shoppingCart, function(value, key) {
+                $scope.consolidatedPrice += parseFloat(value.price);
+                $scope.consolidatedPrice = Math.round($scope.consolidatedPrice * 100)/100;
+        });
+    }
 
 }]);
 
@@ -105,6 +121,11 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
 
     //define indicators object
     $scope.indicators = {};
+
+    //define shopping cart if not already defined
+    if(!$rootScope.shoppingCart){
+        $rootScope.shoppingCart = [];
+    }
 
     $scope.selectArticleGroup = function(id){
         $scope.currentArticleGroup = id;
@@ -165,16 +186,19 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
 
         // $scope.indicators.tempArticle.ingredients = $scope.data.ingredients;
         $rootScope.shoppingCart.push($scope.indicators.tempArticle);
+
+        $scope.calcConsolidatedPrice();
     }
 
     //adding an article to shopping cart
-    $rootScope.shoppingCart = [];
     $scope.addItemToCart = function(id){
         $scope.indicators.item = {
             articleId: id,
             price: $rootScope.articles[id].price
         };
         $rootScope.shoppingCart.push($scope.indicators.item);
+
+        $scope.calcConsolidatedPrice();
     }
 
     //function to calc current article price (consolidated)
@@ -188,6 +212,15 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
             }
         });
 
+    }
+
+    //function to determine that only one size can be selected at the same time
+    $scope.evalSize = function(id){
+        $rootScope.ingredients[1].selected = false;
+        $rootScope.ingredients[2].selected = false;
+        $rootScope.ingredients[3].selected = false;
+        $rootScope.ingredients[id].selected = true;
+        $scope.calcCurrentPrice();
     }
 
 }]);
