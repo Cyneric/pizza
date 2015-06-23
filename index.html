@@ -35,17 +35,17 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     <span class="glyphicon glyphicon-shopping-cart"></span> Warenkorb
-                                    <span class="label label-info">1</span>
+                                    <span class="label label-info">{{shoppingCart.length}}</span>
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-cart" role="menu">
-                                    <li>
+                                    <li ng-repeat="article in shoppingCart">
                                         <span class="item">
                                             <span class="item-left">
-                                                <img src="../../../pizza/src/img/pizza/salami.jpeg" width="50px" height="50px;" class="img img-circle"/>
+                                                <img src="../../../pizza/src/img/articles/{{articles[article.articleId].image}}.jpeg" width="50px" height="50px;" class="img img-circle"/>
                                                 <span class="item-info">
-                                                    <span>Salami</span>
-                                                    <span>5.99 €</span>
+                                                    <span><strong>{{articles[article.articleId].name}}</strong></span>
+                                                    <span ng-repeat="ingredient in article.ingredients" style="font-size: 80%;"> + {{ingredients[ingredient].name}}</span>
                                                 </span>
                                             </span>
                                             <span class="item-right">

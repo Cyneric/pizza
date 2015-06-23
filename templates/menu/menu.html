@@ -20,7 +20,7 @@
 <!-- article group 1 - pizza -->
 <div ng-if="currentArticleGroup == 1">
     <div class="row-clearfix">
-        <div class="col-md-3" ng-repeat="article in data.articles" ng-if="article.article_type_id == 1">
+        <div class="col-md-3" ng-repeat="article in articles" ng-if="article.article_type_id == 1">
             <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
                 <p style="text-align:center;">
                     <img src="../../../pizza/src/img/pizza/{{article.image}}.jpeg" class="img-responsive">
@@ -30,7 +30,7 @@
                     <div class="caption-text">
                         <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">{{article.name}} <span class="label label-danger center pull-right">ab {{article.price}} €</span></h3>
                         <p>{{article.description}}</p>
-                        <a class=" btn btn-default" style="cursor:pointer;" ng-click="selectArticle(article.id);toggleIngredientsModal();"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+                        <a class=" btn btn-default" style="cursor:pointer;" ng-click="selectArticle(article.id);toggleIngredientsModal();calcCurrentPrice();"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
 <!-- article group 2 - salad -->
 <div ng-if="currentArticleGroup == 2">
     <div class="row-clearfix">
-        <div class="col-md-3" ng-repeat="article in data.articles" ng-if="article.article_type_id == 2">
+        <div class="col-md-3" ng-repeat="article in articles" ng-if="article.article_type_id == 2">
             <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
                 <p style="text-align:center;">
                     <img src="../../../pizza/src/img/salad/{{article.image}}.jpeg" class="img-responsive">
@@ -62,7 +62,7 @@
 <!-- article group 3 - drinks -->
 <div ng-if="currentArticleGroup == 3">
     <div class="row-clearfix">
-        <div class="col-md-3" ng-repeat="article in data.articles" ng-if="article.article_type_id == 3">
+        <div class="col-md-3" ng-repeat="article in articles" ng-if="article.article_type_id == 3">
             <div class="pizza_hover " style="background-color:#cccccc;margin-top:50px;">
                 <p style="text-align:center;">
                     <img src="../../../pizza/src/img/drinks/{{article.image}}.jpeg" class="img-responsive">
@@ -87,11 +87,14 @@
 <modal title="Zutaten w&auml;hlen" visible="indicators.showIngredients">
     <div class="row clearfix">
         <div class="col-md-4 column">
-            <img src="../../../pizza/src/img/pizza/{{data.articles[indicators.currentSelectedArticle].image}}.jpeg" class="img-responsive img-rounded">
+            <img src="../../../pizza/src/img/pizza/{{articles[indicators.currentSelectedArticle].image}}.jpeg" class="img-responsive img-rounded">
         </div>
-        <div class="col-md-8 column">
-            <h4 class="text-muted">Pizza {{data.articles[indicators.currentSelectedArticle].name}}</h4>
-            <h5 class="text-muted">{{data.articles[indicators.currentSelectedArticle].description}}</h5>
+        <div class="col-md-6 column">
+            <h4 class="text-muted">Pizza {{articles[indicators.currentSelectedArticle].name}}</h4>
+            <h5 class="text-muted">{{articles[indicators.currentSelectedArticle].description}}</h5>
+        </div>
+        <div class="col-md-2 column">
+            <span class="label label-warning" style="font-size:150%;">{{currentPrice}} €</span>
         </div>
     </div>
     <hr>
@@ -102,9 +105,9 @@
         </div>
     </div>
     <div class="row clearfix">
-        <div class="col-md-4 column" ng-repeat="ingredient in data.ingredients" ng-if="ingredient.id <= 3">
+        <div class="col-md-4 column" ng-repeat="ingredient in ingredients" ng-if="ingredient.id <= 3">
             <div class="funkyradio">
-                <div class="funkyradio-success" ng-click="toggleIngredient(ingredient.id)">
+                <div class="funkyradio-success" ng-click="toggleIngredient(ingredient.id);calcCurrentPrice();">
                     <input type="checkbox" ng-checked="ingredient.selected"/>
                     <label>
                         <span class="pull-left">{{ingredient.name}} </span>
@@ -124,9 +127,9 @@
         </div>
     </div>
     <div class="row clearfix">
-        <div class="col-md-4 column" ng-repeat="ingredient in data.ingredients" ng-if="ingredient.id > 3">
+        <div class="col-md-4 column" ng-repeat="ingredient in ingredients" ng-if="ingredient.id > 3">
             <div class="funkyradio">
-                <div class="funkyradio-success" ng-click="toggleIngredient(ingredient.id)">
+                <div class="funkyradio-success" ng-click="toggleIngredient(ingredient.id);calcCurrentPrice();">
                     <input type="checkbox" ng-checked="ingredient.selected"/>
                     <label>
                         <span class="pull-left">{{ingredient.name}} </span>
@@ -138,13 +141,14 @@
             </div>
         </div>
     </div>
+    <hr>
     <div class="row clearfix">
         <div class="col-md-12 column">
-            <a class=" btn btn-default" style="cursor:pointer;" ng-click="addIngredientsToArticle();"><i class="fa fa-cart-plus"></i> in den Warenkorb</a>
+            <a class=" btn btn-info" style="cursor:pointer;width:100%;" ng-click="addIngredientsToArticle();toggleIngredientsModal();"><i class="fa fa-cart-plus"></i> Für {{currentPrice}} € in den Warenkorb</a>
         </div>
     </div>
 </modal>
 
 
 
-<pre>{{indicators.shoppingCart | json}}</pre>
+<pre>{{shoppingCart | json}}</pre>

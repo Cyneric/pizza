@@ -120,7 +120,7 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
     $scope.getArticles = function(){
         $http.get('http://'+$location.host()+'/pizza/backend/MenuController.php?getArticles').
             success(function(data) {
-                $scope.data.articles = data;
+                $rootScope.articles = data;
                 console.log(data);
             });
     }
@@ -129,7 +129,7 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
     $scope.getIngredients = function(){
         $http.get('http://'+$location.host()+'/pizza/backend/MenuController.php?getIngredients').
             success(function(data) {
-                $scope.data.ingredients = data;
+                $rootScope.ingredients = data;
                 console.log(data);
             });
     }
@@ -145,32 +145,49 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
 
     //function to select / unselect ingredient
     $scope.toggleIngredient = function(id){
-        $scope.data.ingredients[id].selected = !$scope.data.ingredients[id].selected;
-        console.log($scope.data.ingredients[id]);
+        $rootScope.ingredients[id].selected = !$rootScope.ingredients[id].selected;
+        console.log($rootScope.ingredients[id]);
     }
 
     //function to add ingredients to current selected article and move to shopping cart
     $scope.addIngredientsToArticle = function(){
         $scope.indicators.tempArticle = {};
-        $scope.indicators.tempArticle = $scope.data.articles[$scope.indicators.currentSelectedArticle];
+        $scope.indicators.tempArticle.articleId = $rootScope.articles[$scope.indicators.currentSelectedArticle].id;
+        $scope.indicators.tempArticle.price = $scope.currentPrice;
         $scope.indicators.tempArticle.ingredients = [];
 
         //we only want selected ingredients in our article object
-        angular.forEach($scope.data.ingredients, function(value, key) {
+        angular.forEach($rootScope.ingredients, function(value, key) {
                 if(value.selected){
-                   $scope.indicators.tempArticle.ingredients[key] = $scope.data.ingredients[key];
+                   $scope.indicators.tempArticle.ingredients.push($rootScope.ingredients[key].id);
                 }
         });
 
         // $scope.indicators.tempArticle.ingredients = $scope.data.ingredients;
-        $scope.indicators.shoppingCart.push($scope.indicators.tempArticle);
+        $rootScope.shoppingCart.push($scope.indicators.tempArticle);
     }
 
     //adding an article to shopping cart
-    $scope.indicators.shoppingCart = [];
+    $rootScope.shoppingCart = [];
     $scope.addItemToCart = function(id){
-        console.log(id);
-        $scope.indicators.shoppingCart.push($scope.data.articles[id]);
+        $scope.indicators.item = {
+            articleId: id,
+            price: $rootScope.articles[id].price
+        };
+        $rootScope.shoppingCart.push($scope.indicators.item);
+    }
+
+    //function to calc current article price (consolidated)
+    $scope.calcCurrentPrice = function(){
+        $scope.currentPrice = parseFloat($rootScope.articles[$scope.indicators.currentSelectedArticle].price);
+
+        angular.forEach($rootScope.ingredients, function(value, key) {
+            if(value.selected){
+                $scope.currentPrice += parseFloat(value.price);
+                $scope.currentPrice = Math.round($scope.currentPrice * 100)/100;
+            }
+        });
+
     }
 
 }]);
