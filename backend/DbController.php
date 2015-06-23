@@ -75,4 +75,19 @@ class DbController{
 
     }
 
+    //insert data into database
+    public static function insert($query){
+
+        if($query){
+
+            $conn = new mysqli(DbController::$host, DbController::$user, DbController::$pass, DbController::$db);
+
+            $conn->query($query);
+
+            return $conn->insert_id;
+
+        }
+
+    }
+
 }

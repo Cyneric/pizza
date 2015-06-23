@@ -15,6 +15,7 @@ if(isset($_GET)){
     MenuController::$method();
 }
 
+
 class MenuController {
 
     //function to fetch all articles from database

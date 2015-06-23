@@ -62,7 +62,7 @@
                                         </span>
                                     </li>
                                     <li class="divider" ng-if="shoppingCart.length > 0"></li>
-                                    <li><a class="text-center" ng-if="shoppingCart.length > 0" style="cursor:pointer" ng-click="toggleCart();">Warenkorb anzeigen / Bestellen</a></li>
+                                    <li align="center"><button class="btn btn-sm btn-primary text-center" ng-if="shoppingCart.length > 0" style="cursor:pointer;width:98%;" ng-click="toggleCart();">Warenkorb anzeigen / Bestellen</button></li>
                                 </ul>
                             </li>
                            <!-- <li ng-cloak ng-if="session.data.is_admin > 0" ng-class="currentPage=='admin'?'active':''"><a href="#/admin"><i class="fa fa-cog fa-spin"></i> Adminpanel</a></li> -->
@@ -127,7 +127,7 @@
     <modal title="Warenkorb" visible="indicators.showCart">
         <div class="row clearfix">
             <div class="col-md-12 column">
-                <table class="table table-striped table-responsive table-hover">
+                <table class="table table-striped table-hover">
                     <thead class="text-muted" style="font-weight:bold;">
                         <th></th>
                         <th>Artikel</th>
@@ -146,7 +146,7 @@
                             <td>
                                 <span  ng-repeat="ingredient in article.ingredients">
                                     <span> + {{ingredients[ingredient].name}}</span>
-                                    <span class="pull-right item-right label label-success">{{ingredients[ingredient].price}} €</span>
+                                    <span class="pull-right item-right label label-default">{{ingredients[ingredient].price}} €</span>
                                     <br>
                                 </span>
                             </td>
@@ -160,7 +160,7 @@
                         <tr>
                             <td></td>
                             <td></td>
-                            <td>
+                            <td class="pull-right">
                                 <span style="font-weight:bold;font-size:120%;" class="text-muted">Gesamtpreis:</span>
                             </td>
                             <td><span class="label label-warning pull-right" style="font-size:120%;">{{consolidatedPrice}} €</span></td>
@@ -168,7 +168,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-success btn-sm" style="width:100%;"><i class="fa fa-cart-arrow-down"></i> Bestellen</button>
+                <button class="btn btn-primary btn-sm" style="width:100%;"><i class="glyphicon glyphicon-shopping-cart"></i> Bestellen</button>
             </div>
         </div>
     </modal>
@@ -235,7 +235,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-xs-12 col-md-12">
-                                    <btn class="btn btn-sm btn-primary btn-block" ng-class="!registrationFormCompleted ? 'disabled':''"><i class="fa fa-user-plus"></i> Registrieren</btn>
+                                    <btn class="btn btn-sm btn-primary btn-block" ng-class="!registrationFormCompleted ? 'disabled':''" ng-click="addUser();"><i class="fa fa-user-plus"></i> Registrieren</btn>
                                 </div>
                             </div>
                         </form>

@@ -38,11 +38,11 @@ class IndexController{
             $pass = $_GET['password'];
 
 
-            $query = "SELECT * FROM users WHERE username = '".$user."'";
+            $query = "SELECT * FROM users WHERE username = '".$user."' AND password = '".$pass."'";
 
             $data = DbController::fetchOne($query);
 
-            if($data['password'] == $pass){
+            if($data){
                 session_start();
                 $_SESSION['data'] = $data;
                 $_SESSION['username'] = $data['username'];
@@ -62,6 +62,51 @@ class IndexController{
     public static function logout(){
         session_start();
         session_destroy();
+    }
+
+
+
+    public static function updateSession(){
+
+        //get post data
+        $data = json_decode(file_get_contents("php://input"));
+
+        session_start();
+
+        //add data to session
+        $_SESSION['shoppingCart'] = $data;
+
+        if(!empty($data)){
+            echo json_encode(true);
+        }else echo json_encode(false);
+    }
+
+
+
+    public static function addUser(){
+
+        //get post data
+        $data = json_decode(file_get_contents("php://input"));
+
+        $query = "SELECT * FROM users WHERE username = '".$data->username."'";
+        $user = DbController::fetchOne($query);
+
+        //if user already exists
+        if($user){
+            exit();
+        }
+
+        else{
+
+            $insertQuery = "INSERT INTO users (".implode(array_keys(get_object_vars($data)), ', ').") VALUES (\"".implode(array_values(get_object_vars($data)), '"," ')."\")";
+
+            //insert into database
+            $success = DbController::insert($insertQuery);
+
+            echo json_encode(true);
+        }
+
+
     }
 
 }

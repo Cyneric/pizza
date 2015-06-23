@@ -31,7 +31,14 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
 		$http.get('http://'+$location.host()+'/pizza/backend/IndexController.php?getSession').
 		success(function(data) {
 			$scope.session = data;
+
+            //define shopping cart if not already defined
+                if(data.shoppingCart){
+                    $rootScope.shoppingCart = data.shoppingCart;
+                    $scope.calcConsolidatedPrice();
+                }else $rootScope.shoppingCart = [];
 		});
+
 	}
 
 	//fetch session on load
@@ -70,9 +77,8 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
 
     //function to remove article from shopping cart
     $scope.removeArticleFromCart = function(id){
-        console.log(id);
-        console.log($rootScope.shoppingCart[id]);
         $rootScope.shoppingCart.splice(id, 1);
+        $scope.updateSession($rootScope.shoppingCart);
         $scope.calcConsolidatedPrice();
     }
 
@@ -120,11 +126,39 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
     $scope.evalRegistrationForm = function(){
         $scope.registrationFormCompleted = true;
         angular.forEach($scope.data.register, function(value, key) {
-            console.log(value);
             if(!value){
-                console.log("kein inhalt");
                 $scope.registrationFormCompleted = false;
             }
+        });
+    }
+
+    //function to update session to keep shopping cart
+    $scope.updateSession = function(updateData){
+        $http({
+            url: 'http://'+$location.host()+'/pizza/backend/IndexController.php?updateSession',
+            method: "POST",
+            data: updateData,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data, status, headers, config) {
+        }).error(function (data, status, headers, config) {
+        });
+    }
+
+    $scope.addUser = function(){
+        $http({
+            url: 'http://'+$location.host()+'/pizza/backend/IndexController.php?addUser',
+            method: "POST",
+            data: $scope.data.register,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data, status, headers, config) {
+            console.log(data);
+            if(!data)alert("Benutzer existiert bereits!");
+            else{
+                alert("Benutzer erfolgreich angelegt!");
+                $scope.indicators.showRegisterModal = false;
+            }
+        }).error(function (data, status, headers, config) {
+            alert("Es ist ein Fehler aufgetreten!");
         });
     }
 
@@ -159,11 +193,6 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
 
     //define indicators object
     $scope.indicators = {};
-
-    //define shopping cart if not already defined
-    if(!$rootScope.shoppingCart){
-        $rootScope.shoppingCart = [];
-    }
 
     $scope.selectArticleGroup = function(id){
         $scope.currentArticleGroup = id;
@@ -224,7 +253,7 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
 
         // $scope.indicators.tempArticle.ingredients = $scope.data.ingredients;
         $rootScope.shoppingCart.push($scope.indicators.tempArticle);
-
+        $scope.updateSession($rootScope.shoppingCart);
         $scope.calcConsolidatedPrice();
     }
 
@@ -235,7 +264,7 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
             price: $rootScope.articles[id].price
         };
         $rootScope.shoppingCart.push($scope.indicators.item);
-
+        $scope.updateSession($rootScope.shoppingCart);
         $scope.calcConsolidatedPrice();
     }
 
