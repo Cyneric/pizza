@@ -107,7 +107,7 @@ class IndexController{
             }
             */
 
-            $insertQuery = "INSERT INTO users (".implode(array_keys(get_object_vars($data)), ', ').") VALUES (\"".implode(array_values(get_object_vars($data)), '","')."\")";
+            $insertQuery = "INSERT INTO users (".implode(array_keys(get_object_vars($data)), ', ').") VALUES (\"".implode(array_values(get_object_vars($data)),'","')."\")";
 
             //insert into database
             $success = DbController::insert($insertQuery);

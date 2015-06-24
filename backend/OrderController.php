@@ -50,12 +50,11 @@ class OrderController{
 
     public static function fetchOrders(){
 
-        $query = "SELECT o.id, o.user_id, UNIX_TIMESTAMP(o.time) as time, o.order_price, o.completed, u.first_name, u.last_name
+        $query = "SELECT o.id, o.user_id, UNIX_TIMESTAMP(o.time) as time, o.order_price, o.completed, u.first_name, u.last_name, u.email, u.street_name, u.street_number, u.zip, u.location, u.phone
                   FROM orders o, users u
                   WHERE o.user_id = u.id";
 
         $data = DbController::fetchAssoc($query);
-
 
         echo json_encode($data);
 
@@ -89,13 +88,32 @@ class OrderController{
             }
         }
 
-        /*
-        foreach($orderItemsIngredientsRes as $ingredient){
-            $orderItems[$ingredient['order_item_id']]['ingredients'] = array();
-            array_push($orderItems[$ingredient['order_item_id']]['ingredients'], $ingredient['ingredient_id']);
-        }*/
-        print_r($orderItems);
-       // echo json_encode($orderItems);
+       echo json_encode($orderItems);
+
+    }
+
+
+    public static function completeOrder(){
+
+        $id = $_GET['id'];
+
+        $query = "UPDATE orders SET completed = 1 WHERE id = $id";
+
+        $result = DbController::insert($query);
+
+        echo json_encode($result);
+
+    }
+
+    public static function uncompleteOrder(){
+
+        $id = $_GET['id'];
+
+        $query = "UPDATE orders SET completed = 0 WHERE id = $id";
+
+        $result = DbController::insert($query);
+
+        echo json_encode($result);
 
     }
 

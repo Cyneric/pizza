@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 23. Jun 2015 um 23:43
+-- Erstellungszeit: 24. Jun 2015 um 11:54
 -- Server-Version: 5.5.43-0ubuntu0.14.04.1
 -- PHP-Version: 5.5.9-1ubuntu4.9
 
@@ -121,11 +121,22 @@ INSERT INTO `ingredients` (`id`, `name`, `price`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `orders` (
-  `id` int(10) NOT NULL,
+`id` int(10) NOT NULL,
   `user_id` int(10) NOT NULL,
-  `order_item_id` int(10) NOT NULL,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `order_price` float NOT NULL,
+  `completed` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Daten für Tabelle `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `time`, `order_price`, `completed`) VALUES
+(1, 12, '2015-06-24 18:51:31', 28.93, 1),
+(2, 13, '2015-06-24 18:51:32', 15.75, 1),
+(3, 14, '2015-06-24 18:51:33', 16.35, 1),
+(4, 15, '2015-06-24 18:51:11', 22.85, 0);
 
 -- --------------------------------------------------------
 
@@ -134,9 +145,32 @@ CREATE TABLE IF NOT EXISTS `orders` (
 --
 
 CREATE TABLE IF NOT EXISTS `order_items` (
-  `id` int(10) NOT NULL,
-  `article_id` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+`id` int(10) NOT NULL,
+  `article_id` int(10) NOT NULL,
+  `order_id` int(10) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Daten für Tabelle `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `article_id`, `order_id`) VALUES
+(1, 1, 1),
+(2, 11, 1),
+(3, 14, 1),
+(4, 6, 1),
+(5, 8, 2),
+(6, 10, 2),
+(7, 15, 2),
+(8, 15, 3),
+(9, 14, 3),
+(10, 7, 3),
+(11, 4, 3),
+(12, 10, 4),
+(13, 11, 4),
+(14, 12, 4),
+(15, 13, 4),
+(16, 14, 4);
 
 -- --------------------------------------------------------
 
@@ -146,9 +180,24 @@ CREATE TABLE IF NOT EXISTS `order_items` (
 
 CREATE TABLE IF NOT EXISTS `order_item_ingredients` (
 `id` int(64) NOT NULL,
-  `order_item_id` int(32) NOT NULL,
-  `ingredients_id` int(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `ingredient_id` int(10) NOT NULL,
+  `order_item_id` int(10) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Daten für Tabelle `order_item_ingredients`
+--
+
+INSERT INTO `order_item_ingredients` (`id`, `ingredient_id`, `order_item_id`) VALUES
+(1, 3, 1),
+(2, 13, 1),
+(3, 2, 4),
+(4, 1, 5),
+(5, 15, 5),
+(6, 18, 5),
+(7, 1, 10),
+(8, 1, 11),
+(9, 14, 11);
 
 -- --------------------------------------------------------
 
@@ -169,17 +218,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `location` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'loaction ',
   `phone` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'phone number',
   `is_admin` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Daten für Tabelle `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `street_name`, `street_number`, `zip`, `location`, `phone`, `is_admin`) VALUES
-(1, 'admin', 'password', 'Christian', 'Blank', 'christian-blank@live.de', 'Frühlingstraße', '11a', '76275', 'Ettlingen', '01575 7011245', 1),
-(2, 'testbob', 'testbob', 'Test', 'Bob', 'test-bob@mail.com', 'Teststraße ', '1', '12345', 'Teststadt', '12345 / 12345678', 0),
-(3, 'testboy', ' pifdsfpassword', ' christian', ' blank', ' email@mail.de', ' FrÃ¼hlingstraÃŸe', ' 11a', ' 76275', ' ettlingen', ' 123456777', 0),
-(4, 'test', ' test', ' test', ' test', ' test', ' test', ' test', ' test', ' test', ' test', 0);
+(1, 'admin', 'password', 'Christian', 'Blank', 'christian-blank@live.de', 'Frühlingstraße', '11a', '76275', 'Ettlingen', '+49 (0) 1570 409584', 1),
+(12, 'prudlf', 'rudolfpeter', 'Peter', 'Rudolf', 'peter.rudolf@web.de', 'Torfstraße', '3', '76137', 'Karlsruhe', '+49 (0) 721 898593', 0),
+(13, 'pmueller', 'pmueller12', 'Peter', 'Müller', 'peter.mueller@hotmail.com', 'Südendstraße', '52', '76135', 'Karlsruhe', '+49 (0) 721 3940593', 0),
+(14, 'tpeterson', 'tpeterson123', 'Thomas', 'Peterson', 't.peterson@gmail.com', 'Kehreckweg', '14', '76275', 'Ettlingen', '+49 (0) 7243 83945', 0),
+(15, 'schmuro', 'schmuro76', 'Rolf', 'Schmu', 'schmu.rolf@msn.de', 'MoltkestraÃŸe', '23', '76136', 'Karlsruhe', '+49 (0) 721 980474', 0);
 
 --
 -- Indizes der exportierten Tabellen
@@ -225,7 +275,7 @@ ALTER TABLE `order_item_ingredients`
 -- Indizes für die Tabelle `users`
 --
 ALTER TABLE `users`
- ADD KEY `user_id` (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `user_id` (`id`);
 
 --
 -- AUTO_INCREMENT für exportierte Tabellen
@@ -247,15 +297,25 @@ MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 ALTER TABLE `ingredients`
 MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
+-- AUTO_INCREMENT für Tabelle `orders`
+--
+ALTER TABLE `orders`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT für Tabelle `order_items`
+--
+ALTER TABLE `order_items`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+--
 -- AUTO_INCREMENT für Tabelle `order_item_ingredients`
 --
 ALTER TABLE `order_item_ingredients`
-MODIFY `id` int(64) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(64) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identifier',AUTO_INCREMENT=5;
+MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identifier',AUTO_INCREMENT=16;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

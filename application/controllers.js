@@ -342,6 +342,10 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
 //admin controller
 app.controller('adminCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location){
 
+    if($scope.session.data.is_admin < 1){
+        $location.path('/');
+    }
+
     $rootScope.setCurrentPage('admin');
     $scope.data = [];
 
@@ -360,8 +364,13 @@ app.controller('adminCtrl', ['$scope', '$rootScope', '$http', '$location', funct
 //orders controller
 app.controller('ordersCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location){
 
+    if($scope.session.data.is_admin < 1){
+        $location.path('/');
+    }
+
     $rootScope.setCurrentPage('admin');
     $scope.data = [];
+    $scope.showDetails = false;
 
     if(!$rootScope.articles)$scope.getArticles();
     if(!$rootScope.ingredients)$scope.getIngredients();
@@ -381,6 +390,29 @@ app.controller('ordersCtrl', ['$scope', '$rootScope', '$http', '$location', func
             success(function(data) {
                 console.log(data);
                 $scope.data.orderDetails = data;
+                $scope.showDetails = true;
+                $scope.currentSelectedOrder = id;
+            });
+    }
+
+
+    $scope.toggleOrderDetailsModal = function(){
+        $scope.showDetails = !$scope.showDetails;
+    }
+
+    //function to mark an order as completed
+    $scope.completeOrder = function(id){
+        $http.get('http://'+$location.host()+'/pizza/backend/OrderController.php?completeOrder&id='+id).
+            success(function(data) {
+                $scope.fetchOrders();
+            });
+    }
+
+    //function to mark an order as uncompleted
+    $scope.uncompleteOrder = function(id){
+        $http.get('http://'+$location.host()+'/pizza/backend/OrderController.php?uncompleteOrder&id='+id).
+            success(function(data) {
+                $scope.fetchOrders();
             });
     }
 
