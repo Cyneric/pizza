@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="src/css/style.css">
     <link rel="stylesheet" type="text/css" href="src/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="src/css/bootstrap-social.css">
+    <link rel="stylesheet" type="text/css" href="src/css/toastr.css">
 </head>
 <body>
     <div id="wrap">
@@ -160,15 +161,88 @@
                         <tr>
                             <td></td>
                             <td></td>
-                            <td class="pull-right">
-                                <span style="font-weight:bold;font-size:120%;" class="text-muted">Gesamtpreis:</span>
+                            <td>
+                                <span style="font-weight:bold;font-size:120%;" class="text-muted pull-right">Gesamtpreis:</span>
                             </td>
                             <td><span class="label label-warning pull-right" style="font-size:120%;">{{consolidatedPrice}} €</span></td>
                             <td></td>
                         </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-primary btn-sm" style="width:100%;"><i class="glyphicon glyphicon-shopping-cart"></i> Bestellen</button>
+            </div>
+        </div>
+        <div class="row clearfix" ng-if="session.data.id > 0">
+            <div class="col-md-12 column">
+                <form role="form" style="margin:2%;">
+                    <h4 class="text-muted">Lieferadresse</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input disabled type="text" ng-model="session.data.first_name" class="form-control input-sm" placeholder="Vorname">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input disabled type="text" ng-model="session.data.last_name" class="form-control input-sm" placeholder="Nachname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-10 col-sm-10 col-md-10">
+                            <div class="form-group">
+                                <input disabled type="text" ng-model="session.data.street_name" class="form-control input-sm" placeholder="Straße">
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="form-group">
+                                <input disabled type="text" ng-model="session.data.street_number" class="form-control input-sm" placeholder="Nr.">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input disabled type="text" ng-model="session.data.zip" class="form-control input-sm" placeholder="Postleitzahl">
+                            </div>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <div class="form-group">
+                                <input disabled type="text" ng-model="session.data.location" class="form-control input-sm" placeholder="Ort">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input disabled type="text" ng-model="session.data.phone" class="form-control input-sm" placeholder="Telefonnummner">
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <btn class="btn btn-sm btn-primary btn-block" ng-click="placeOrder();" ng-class="shoppingCart.length > 0 && session.data.id > 0? '':'disabled'"><i class="fa fa-truck"></i> Jetzt für {{consolidatedPrice}} € bestellen!</btn>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row clearfix" ng-if="!session.data.id > 0">
+            <div class="col-md-12 column">
+                <div class="alert alert-danger">
+                    <strong>Login erforderlich!</strong> Bitte logge dich ein oder erstelle ein Benutzerkonto um den Bestellvorgang fortzusetzen
+                </div>
+                <form ng-cloak ng-if="!session.isLoggedIn" class="navbar-form navbar-right" role="form">
+                    <div style="margin:2px;" class="input-group" ng-cloak ng-show="indicators.showLoginForm">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" class="form-control" placeholder="Username" ng-model="loginData.username">
+                    </div>
+                    <div style="margin:2px;" class="input-group" ng-cloak ng-show="indicators.showLoginForm">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="password" class="form-control" placeholder="Passwort" ng-model="loginData.password">
+                    </div>
+                    <button style="margin:2px;" ng-cloak ng-if="!indicators.showLoginForm" class="btn btn-primary" ng-click="toggleLoginForm();">Einloggen</button>
+                    <button style="margin:2px;" ng-cloak ng-if="indicators.showLoginForm && loginData.password && loginData.username" class="btn btn-success" ng-click="login();">Login</button>
+                    <button style="margin:2px;" ng-cloak ng-if="indicators.showLoginForm" class="btn btn-danger" ng-click="cancelLogin();">Abbrechen</button>
+                    <button style="margin:2px;" ng-cloak class="btn btn-info" ng-click="toggleRegisterModal();">Registrieren</button>
+                </form>
             </div>
         </div>
     </modal>
@@ -245,6 +319,7 @@
        </div>
     </modal>
 
+
     <!--dependent scripts-->
     <script src="src/js/angular-route.js"></script>
     <script src="src/js/jquery-1.11.1.min.js"></script>
@@ -255,5 +330,6 @@
     <script src="application/controllers.js"></script>
     <script src="application/factories.js"></script>
     <script src="src/js/ui-bootstrap-0.11.2.min.js"></script>
+    <script src="src/js/toastr.js"></script>
 </body>
 </html>

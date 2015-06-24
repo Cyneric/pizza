@@ -19,7 +19,7 @@ class DbController{
         $conn = new mysqli(DbController::$host, DbController::$user, DbController::$pass, DbController::$db);
 
         $result = $conn->query($query);
-        print_r($query);
+
         $data = array();
 
         while($row = mysqli_fetch_array($result))

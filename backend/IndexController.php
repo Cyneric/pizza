@@ -38,11 +38,11 @@ class IndexController{
             $pass = $_GET['password'];
 
 
-            $query = "SELECT * FROM users WHERE username = '".$user."' AND password = '".$pass."'";
+            $query = "SELECT * FROM users WHERE username = '".$user."'";
 
             $data = DbController::fetchOne($query);
 
-            if($data){
+            if($data['password'] == $pass){
                 session_start();
                 $_SESSION['data'] = $data;
                 $_SESSION['username'] = $data['username'];
@@ -98,7 +98,16 @@ class IndexController{
 
         else{
 
-            $insertQuery = "INSERT INTO users (".implode(array_keys(get_object_vars($data)), ', ').") VALUES (\"".implode(array_values(get_object_vars($data)), '"," ')."\")";
+            $preparedInsertData = array();
+
+            /*
+            foreach(get_object_vars($data) as $tmp){
+                utf8_encode($tmp);
+                array_push($preparedInsertData, $tmp);
+            }
+            */
+
+            $insertQuery = "INSERT INTO users (".implode(array_keys(get_object_vars($data)), ', ').") VALUES (\"".implode(array_values(get_object_vars($data)), '","')."\")";
 
             //insert into database
             $success = DbController::insert($insertQuery);

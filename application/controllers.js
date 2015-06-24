@@ -15,6 +15,14 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
     $scope.session = {};
     $scope.data = {};
 
+    //toastr configuration
+    toastr.options = {
+        "closeButton" : true,
+        "positionClass": "toast-top-right",
+        "timeOut": "2000"
+    }
+
+
 	//function to toggle inline login form in navigation
 	$scope.toggleLoginForm = function(){
 		$scope.indicators.showLoginForm = !$scope.indicators.showLoginForm;
@@ -59,7 +67,8 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
                         $scope.fetchSession();
                         $scope.loginData = {};
                         $scope.indicators.showLoginForm = false;
-                    }else alert("benutzer oder passwort falsch!");
+                        toastr["success"]("Hallo "+data.username, "Login erfolgreich!");
+                    }else toastr["error"]("", "Benutzer oder Passwort falsch!");;
                 });
 
         }
@@ -77,9 +86,13 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
 
     //function to remove article from shopping cart
     $scope.removeArticleFromCart = function(id){
+
+        var tmp = $rootScope.shoppingCart[id];
+console.log(tmp);
         $rootScope.shoppingCart.splice(id, 1);
         $scope.updateSession($rootScope.shoppingCart);
         $scope.calcConsolidatedPrice();
+        toastr["info"](""+$rootScope.articles[tmp.articleId].name, "Artikel wurde entfernt");
     }
 
     //function to toggle shopping cart
@@ -160,6 +173,12 @@ app.controller('indexCtrl', ['$scope', '$rootScope', '$http', '$location', funct
         }).error(function (data, status, headers, config) {
             alert("Es ist ein Fehler aufgetreten!");
         });
+    }
+
+    //function to toggle order confirmation modal
+    $scope.indicators.showOrderConfirmationModal = false;
+    $scope.toggleOrderConfirmationModal = function(){
+        $scope.indicators.showOrderConfirmationModal = !$scope.indicators.showOrderConfirmationModal;
     }
 
 }]);
@@ -255,6 +274,7 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
         $rootScope.shoppingCart.push($scope.indicators.tempArticle);
         $scope.updateSession($rootScope.shoppingCart);
         $scope.calcConsolidatedPrice();
+        toastr["success"](""+$rootScope.articles[$scope.indicators.tempArticle.articleId].name, "Artikel hinzugefügt");
     }
 
     //adding an article to shopping cart
@@ -266,6 +286,7 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
         $rootScope.shoppingCart.push($scope.indicators.item);
         $scope.updateSession($rootScope.shoppingCart);
         $scope.calcConsolidatedPrice();
+        toastr["success"](""+$rootScope.articles[id].name, "Artikel hinzugefügt");
     }
 
     //function to calc current article price (consolidated)
