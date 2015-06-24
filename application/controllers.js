@@ -165,9 +165,9 @@ console.log(tmp);
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (data, status, headers, config) {
             console.log(data);
-            if(!data)alert("Benutzer existiert bereits!");
+            if(!data)toastr["error"]("", "Benutzer existiert bereits!");
             else{
-                alert("Benutzer erfolgreich angelegt!");
+                toastr["success"]("", "Benutzer erfolgreich angelegt!");
                 $scope.indicators.showRegisterModal = false;
             }
         }).error(function (data, status, headers, config) {
@@ -179,6 +179,32 @@ console.log(tmp);
     $scope.indicators.showOrderConfirmationModal = false;
     $scope.toggleOrderConfirmationModal = function(){
         $scope.indicators.showOrderConfirmationModal = !$scope.indicators.showOrderConfirmationModal;
+    }
+
+    //function to place order
+    $scope.placeOrder = function(){
+
+        var preparedData = {
+            "shoppingCart" : $rootScope.shoppingCart,
+            "userData" : $scope.session.data,
+            "orderPrice" : $scope.consolidatedPrice
+        }
+
+        $http({
+            url: 'http://'+$location.host()+'/pizza/backend/OrderController.php?placeOrder',
+            method: "POST",
+            data: preparedData,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function (data, status, headers, config) {
+            toastr["success"]("", "Die Bestellung wurde Übermittelt");
+            $rootScope.shoppingCart = [];
+            $scope.updateSession();
+            $scope.calcConsolidatedPrice();
+            $scope.indicators.showCart = false;
+        }).error(function (data, status, headers, config) {
+            toastr["error"]("", "Es ist ein Fehler aufgetreten!");
+        });
+
     }
 
 }]);
@@ -314,16 +340,38 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
 }]);
 
 //admin controller
-app.controller('adminCtrl', ['$scope', '$rootScope', function($scope, $rootScope){
+app.controller('adminCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location){
 
     $rootScope.setCurrentPage('admin');
+    $scope.data = [];
 
-    //show pizza as default article group
-    $scope.currentArticleGroup = 1;
-
-    $scope.selectArticleGroup = function(id){
-        $scope.currentArticleGroup = id;
+    $scope.fetchOverviewData = function(){
+        $http.get('http://'+$location.host()+'/pizza/backend/AdminController.php?fetchOverviewData').
+            success(function(data) {
+                console.log(data);
+                $scope.data.overview = data;
+            });
     }
+
+    $scope.fetchOverviewData();
+
+}]);
+
+//orders controller
+app.controller('ordersCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location){
+
+    $rootScope.setCurrentPage('admin');
+    $scope.data = [];
+
+    $scope.fetchOrders = function(){
+        $http.get('http://'+$location.host()+'/pizza/backend/OrderController.php?fetchOrders').
+            success(function(data) {
+                console.log(data);
+                $scope.data.orders = data;
+            });
+    }
+
+    $scope.fetchOrders();
 
 }]);
 

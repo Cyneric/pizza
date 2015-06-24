@@ -1,0 +1,62 @@
+<br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                    <i class="fa fa-users"></i>
+                </div>
+                <div class="text">
+                    <var>{{data.overview.numUsers}}</var>
+                    <label class="text-muted">Registrierte Benutzer</label>
+                </div>
+                <div class="options">
+                    <!--<a href="javascript:;" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> Ansehen</a>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3" style="cursor:pointer;" onClick="self.location.href='#/admin/orders'">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                    <i class="fa fa-truck"></i>
+                </div>
+                <div class="text">
+                    <var>{{data.overview.numOrders}}</var>
+                    <label class="text-muted">Bestellungen</label>
+                </div>
+                <div class="options">
+                  <!--  <a href="javascript:;" class="btn btn-default btn-lg"><i class="fa fa-search"></i> Ansehen</a> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                    <i class="fa fa-cutlery"></i>
+                </div>
+                <div class="text">
+                    <var>{{data.overview.numArticles}}</var>
+                    <label class="text-muted">Bestellte Gerichte</label>
+                </div>
+                <div class="options">
+                   <!-- <a href="javascript:;" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> View orders</a>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                    <i class="fa fa-cog fa-spin"></i>
+                </div>
+                <div class="text">
+                    <var>3</var>
+                    <label class="text-muted">unbearbeitete Bestellungen</label>
+                </div>
+                <div class="options">
+                    <!--<a href="javascript:;" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-wrench"></i> Edit profile</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
