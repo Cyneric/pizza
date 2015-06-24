@@ -207,6 +207,24 @@ console.log(tmp);
 
     }
 
+    //function to fetch all articles
+    $scope.getArticles = function(){
+        $http.get('http://'+$location.host()+'/pizza/backend/MenuController.php?getArticles').
+            success(function(data) {
+                $rootScope.articles = data;
+                console.log(data);
+            });
+    }
+
+    //function to fetch all ingredients
+    $scope.getIngredients = function(){
+        $http.get('http://'+$location.host()+'/pizza/backend/MenuController.php?getIngredients').
+            success(function(data) {
+                $rootScope.ingredients = data;
+                console.log(data);
+            });
+    }
+
 }]);
 
 
@@ -247,24 +265,6 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
     $scope.toggleIngredientsModal = function(){
         $scope.getIngredients();
         $scope.indicators.showIngredients = !$scope.indicators.showIngredients;
-    }
-
-    //function to fetch all articles
-    $scope.getArticles = function(){
-        $http.get('http://'+$location.host()+'/pizza/backend/MenuController.php?getArticles').
-            success(function(data) {
-                $rootScope.articles = data;
-                console.log(data);
-            });
-    }
-
-    //function to fetch all ingredients
-    $scope.getIngredients = function(){
-        $http.get('http://'+$location.host()+'/pizza/backend/MenuController.php?getIngredients').
-            success(function(data) {
-                $rootScope.ingredients = data;
-                console.log(data);
-            });
     }
 
     //fetch data
@@ -363,6 +363,9 @@ app.controller('ordersCtrl', ['$scope', '$rootScope', '$http', '$location', func
     $rootScope.setCurrentPage('admin');
     $scope.data = [];
 
+    if(!$rootScope.articles)$scope.getArticles();
+    if(!$rootScope.ingredients)$scope.getIngredients();
+
     $scope.fetchOrders = function(){
         $http.get('http://'+$location.host()+'/pizza/backend/OrderController.php?fetchOrders').
             success(function(data) {
@@ -372,6 +375,14 @@ app.controller('ordersCtrl', ['$scope', '$rootScope', '$http', '$location', func
     }
 
     $scope.fetchOrders();
+
+    $scope.showOrderDetails = function(id){
+        $http.get('http://'+$location.host()+'/pizza/backend/OrderController.php?fetchOrderDetails&id='+id).
+            success(function(data) {
+                console.log(data);
+                $scope.data.orderDetails = data;
+            });
+    }
 
 }]);
 

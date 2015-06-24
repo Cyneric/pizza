@@ -24,11 +24,13 @@ class AdminController{
         $countUsersQuery = "SELECT COUNT(*) as numResults FROM users";
         $countOrdersQuery = "SELECT COUNT(*) as numResults FROM orders";
         $countArticlesQuery = "SELECT COUNT(*) as numResults FROM order_items";
+        $countUnprocessedOrdersQuery = "SELECT COUNT(*) as numResults FROM orders WHERE completed = 0";
 
         $ret = array(
             "numUsers" => DbController::fetchOne($countUsersQuery)['numResults'],
             "numOrders" => DbController::fetchOne($countOrdersQuery)['numResults'],
-            "numArticles" => DbController::fetchOne($countArticlesQuery)['numResults']
+            "numArticles" => DbController::fetchOne($countArticlesQuery)['numResults'],
+            "numUnprocessedOrders" => DbController::fetchOne($countUnprocessedOrdersQuery)['numResults']
         );
 
         echo json_encode($ret);

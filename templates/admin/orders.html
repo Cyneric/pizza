@@ -8,11 +8,50 @@
             </button>
         </div>
     </div>
-    <div class="col-md-10">
     </div>
 </div>
 <div class="row clearfix">
-    <div class="col-md-12 column">
-        <pre>{{data.orders | json}}</pre>
+    <div class="col-md-2 column">
+    </div>
+    <div class="col-md-8 column">
+        <table class="table table-striped table-hover" style="background-color:white;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;">
+            <thead>
+                <th></th>
+                <th>Bestelldatum</th>
+                <th>Zeit</th>
+                <th>Bestellt von</th>
+                <th>Bestellwert</th>
+                <th>Aktionen</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="order in data.orders" ng-class="order.completed == 1?'success':''">
+                    <td>
+                        {{order.id}}
+                    </td>
+                    <td>
+                        <span>{{order.time*1000 | date:'dd.MM.yyyy'}}</span>
+                    </td>
+                    <td>
+                        <span>{{order.time*1000 | date:'HH:mm'}} Uhr</span>
+                    </td>
+                    <td>
+                        <span>{{order.first_name}} {{order.last_name}}</span>
+                    </td>
+                    <td>
+                        <span>{{order.order_price}} €</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-xs btn-info" title="Bestelldetails anzeigen" ng-click="showOrderDetails(order.id);"><i class="fa fa-search"></i></button>
+                        <button ng-if="order.completed == 0" class="btn btn-xs btn-success" title="Bestellung als Bearbeitet markieren"><i class="fa fa-check"></i></button>
+                        <button ng-if="order.completed == 1" class="btn btn-xs btn-warning" title="Bestellung als unbearbeitet markieren"><i class="fa fa-undo"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2 column">
     </div>
 </div>
+
+<!--<div class="col-md-10"><pre>{{data.orders | json}}</pre>-->
+

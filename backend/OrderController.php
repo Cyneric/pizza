@@ -50,13 +50,52 @@ class OrderController{
 
     public static function fetchOrders(){
 
-        $query = "SELECT o.id, o.user_id, o.time, o.order_price, u.first_name, u.last_name
+        $query = "SELECT o.id, o.user_id, UNIX_TIMESTAMP(o.time) as time, o.order_price, o.completed, u.first_name, u.last_name
                   FROM orders o, users u
                   WHERE o.user_id = u.id";
 
         $data = DbController::fetchAssoc($query);
 
+
         echo json_encode($data);
+
+    }
+
+
+    public static function fetchOrderDetails(){
+
+        $id = $_GET['id'];
+
+        $orderItemsQuery = "SELECT * FROM order_items WHERE order_id = $id";
+
+        $orderItemsRes = DbController::fetchAssoc($orderItemsQuery);
+
+        //print_r($orderItemsRes);
+        //print_r($orderItemsIngredients);
+
+        $orderItems = array();
+
+        foreach($orderItemsRes as $orderItem){
+            $orderItems[$orderItem['id']]['article_id'] = $orderItem['article_id'];
+
+            $orderItemsIngredientsQuery = "SELECT * FROM order_item_ingredients WHERE order_item_id = ".$orderItem['id']."";
+            $orderItemsIngredients = DbController::fetchAssoc($orderItemsIngredientsQuery);
+
+            if($orderItemsIngredients){
+                $orderItems[$orderItem['id']]['ingredients'] = array();
+                foreach($orderItemsIngredients as $ingredient){
+                    array_push($orderItems[$orderItem['id']]['ingredients'], $ingredient['ingredient_id']);
+                }
+            }
+        }
+
+        /*
+        foreach($orderItemsIngredientsRes as $ingredient){
+            $orderItems[$ingredient['order_item_id']]['ingredients'] = array();
+            array_push($orderItems[$ingredient['order_item_id']]['ingredients'], $ingredient['ingredient_id']);
+        }*/
+        print_r($orderItems);
+       // echo json_encode($orderItems);
 
     }
 
