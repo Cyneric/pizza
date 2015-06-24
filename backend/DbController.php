@@ -16,27 +16,21 @@ class DbController{
     //fetch one row from database
     public static function fetchOne($query){
 
-        if($query){
+        $conn = new mysqli(DbController::$host, DbController::$user, DbController::$pass, DbController::$db);
 
-            $conn = new mysqli(DbController::$host, DbController::$user, DbController::$pass, DbController::$db);
+        $result = $conn->query($query);
+        print_r($query);
+        $data = array();
 
-            $result = $conn->query($query);
-
-            $data = array();
-
-            while($row = mysqli_fetch_array($result))
-            {
-                foreach($row as $k => $row){
-                    if(is_numeric($k))continue;
-                    $data[$k] = utf8_encode($row);
-                }
+        while($row = mysqli_fetch_array($result))
+        {
+            foreach($row as $k => $row){
+                if(is_numeric($k))continue;
+                $data[$k] = utf8_encode($row);
             }
-
-            return $data;
-
         }
 
-        else return false;
+        return $data;
 
     }
 

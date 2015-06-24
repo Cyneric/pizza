@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 19. Jun 2015 um 01:30
+-- Erstellungszeit: 23. Jun 2015 um 23:43
 -- Server-Version: 5.5.43-0ubuntu0.14.04.1
 -- PHP-Version: 5.5.9-1ubuntu4.9
 
@@ -122,7 +122,6 @@ INSERT INTO `ingredients` (`id`, `name`, `price`) VALUES
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(10) NOT NULL,
-  `order_id` int(10) NOT NULL,
   `user_id` int(10) NOT NULL,
   `order_item_id` int(10) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -137,6 +136,18 @@ CREATE TABLE IF NOT EXISTS `orders` (
 CREATE TABLE IF NOT EXISTS `order_items` (
   `id` int(10) NOT NULL,
   `article_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `order_item_ingredients`
+--
+
+CREATE TABLE IF NOT EXISTS `order_item_ingredients` (
+`id` int(64) NOT NULL,
+  `order_item_id` int(32) NOT NULL,
+  `ingredients_id` int(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -158,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `location` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'loaction ',
   `phone` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'phone number',
   `is_admin` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Daten für Tabelle `users`
@@ -166,7 +177,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `street_name`, `street_number`, `zip`, `location`, `phone`, `is_admin`) VALUES
 (1, 'admin', 'password', 'Christian', 'Blank', 'christian-blank@live.de', 'Frühlingstraße', '11a', '76275', 'Ettlingen', '01575 7011245', 1),
-(2, 'testbob', 'testbob', 'Test', 'Bob', 'test-bob@mail.com', 'Teststraße ', '1', '12345', 'Teststadt', '12345 / 12345678', 0);
+(2, 'testbob', 'testbob', 'Test', 'Bob', 'test-bob@mail.com', 'Teststraße ', '1', '12345', 'Teststadt', '12345 / 12345678', 0),
+(3, 'testboy', ' pifdsfpassword', ' christian', ' blank', ' email@mail.de', ' FrÃ¼hlingstraÃŸe', ' 11a', ' 76275', ' ettlingen', ' 123456777', 0),
+(4, 'test', ' test', ' test', ' test', ' test', ' test', ' test', ' test', ' test', ' test', 0);
 
 --
 -- Indizes der exportierten Tabellen
@@ -203,6 +216,12 @@ ALTER TABLE `order_items`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indizes für die Tabelle `order_item_ingredients`
+--
+ALTER TABLE `order_item_ingredients`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indizes für die Tabelle `users`
 --
 ALTER TABLE `users`
@@ -228,10 +247,15 @@ MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 ALTER TABLE `ingredients`
 MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
+-- AUTO_INCREMENT für Tabelle `order_item_ingredients`
+--
+ALTER TABLE `order_item_ingredients`
+MODIFY `id` int(64) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identifier',AUTO_INCREMENT=3;
+MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'identifier',AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
