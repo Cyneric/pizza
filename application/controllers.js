@@ -380,8 +380,10 @@ app.controller('adminCtrl', ['$scope', '$rootScope', '$http', '$location', '$int
     $scope.fetchOverviewData();
 
     $interval( function(){
-        $scope.fetchOverviewData();
-        console.log("polling new data");
+        if($rootScope.currentPage == "admin") {
+            $scope.fetchOverviewData();
+            console.log("polling new data");
+        }
     }, 5000);
 
 }]);
@@ -411,8 +413,10 @@ app.controller('ordersCtrl', ['$scope', '$rootScope', '$http', '$location', '$in
     $scope.fetchOrders();
 
     $interval( function(){
-        $scope.fetchOrders();
-        console.log("polling new data");
+        if($rootScope.currentPage == "admin") {
+            $scope.fetchOrders();
+            console.log("polling new data");
+        }
     }, 5000);
 
     $scope.showOrderDetails = function(id){
