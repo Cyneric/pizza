@@ -36,7 +36,7 @@
                     <i class="fa fa-cutlery"></i>
                 </div>
                 <div class="text">
-                    <var>{{data.overview.numArticles}}</var>
+                    <var>{{data.overview.numOrderedArticles}}</var>
                     <label class="text-muted">Bestellte Gerichte</label>
                 </div>
                 <div class="options">
@@ -47,11 +47,71 @@
         <div class="col-sm-3" style="cursor:pointer;" onClick="self.location.href='#/admin/statistics'">
             <div class="hero-widget well well-sm">
                 <div class="icon">
-                    <i class="fa fa-cog fa-spin"></i>
+                    <i class="fa fa-cog fa-bar-chart"></i>
                 </div>
                 <div class="text">
                     <var>2</var>
                     <label class="text-muted">Statistiken</label>
+                </div>
+                <div class="options">
+                    <!--<a href="javascript:;" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-wrench"></i> Edit profile</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                    <i class="fa fa-line-chart"></i>
+                </div>
+                <div class="text">
+                    <var>{{data.overview.earnings}} €</var>
+                    <label class="text-muted">Gesamtumsatz</label>
+                </div>
+                <div class="options">
+                    <!--<a href="javascript:;" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> Ansehen</a>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                    <i class="fa fa-cog fa-spin"></i>
+                </div>
+                <div class="text">
+                    <var>{{data.overview.numUnprocessedOrders}}</var>
+                    <label class="text-muted">Unbearbeitete Bestellungen</label>
+                </div>
+                <div class="options">
+                    <!--  <a href="javascript:;" class="btn btn-default btn-lg"><i class="fa fa-search"></i> Ansehen</a> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                    <i class="fa fa-cubes"></i>
+                </div>
+                <div class="text">
+                    <var>{{data.overview.numArticles}}</var>
+                    <label class="text-muted">Angebotene Artikel</label>
+                </div>
+                <div class="options">
+                    <!-- <a href="javascript:;" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> View orders</a>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                    <i class="fa fa-cog fa-car"></i>
+                </div>
+                <div class="text">
+                    <var>{{data.overview.numOrders - data.overview.numUnprocessedOrders}}</var>
+                    <label class="text-muted">Ausgelieferte Bestellungen</label>
                 </div>
                 <div class="options">
                     <!--<a href="javascript:;" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-wrench"></i> Edit profile</a>-->
