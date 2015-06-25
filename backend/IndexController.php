@@ -118,5 +118,28 @@ class IndexController{
 
     }
 
+
+    public static function getUserData(){
+
+        session_start();
+        $data = $_SESSION['data'];
+
+       echo json_encode($_SESSION['data']);
+
+    }
+
+
+    public static function getUsersLastOrders(){
+
+        session_start();
+        $id = $_SESSION['data']['id'];
+
+        $query = "SELECT id, user_id, UNIX_TIMESTAMP(time) as time, order_price, completed FROM orders WHERE user_id = $id";
+        $result = DbController::fetchAssoc($query);
+
+        echo json_encode($result);
+
+    }
+
 }
 

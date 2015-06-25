@@ -38,10 +38,15 @@ app.config(['$routeProvider', function($routeProvider){
             templateUrl : 'templates/admin/admin.html',
             controller  : 'adminCtrl'
         })
-        //admin
+        //admin orders
         .when('/admin/orders', {
             templateUrl : 'templates/admin/orders.html',
             controller  : 'ordersCtrl'
+        })
+        //admin statistics
+        .when('/admin/statistics', {
+            templateUrl : 'templates/admin/statistics.html',
+            controller  : 'statisticsCtrl'
         })
 		//if route not found
 		.otherwise({redirectTo: '/'});

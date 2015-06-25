@@ -84,4 +84,30 @@ class DbController{
 
     }
 
+
+    //fetch query
+    public static function fetchQuery($query){
+
+        $conn = new mysqli(DbController::$host, DbController::$user, DbController::$pass, DbController::$db);
+
+        $result = $conn->query($query);
+
+        $data = array();
+
+        while($row = mysqli_fetch_array($result))
+        {
+            $tmp = array();
+
+            foreach($row as $k => $row){
+                if(is_numeric($k))continue;
+                $tmp[$k] = utf8_encode($row);
+            }
+
+            array_push($data, $tmp);
+        }
+
+        return $data;
+
+    }
+
 }

@@ -290,3 +290,6 @@ ul.dropdown-cart li .item-right button{
 .hero-widget var { display: block; height: 64px; font-size: 64px; line-height: 64px; font-style: normal; }
 .hero-widget label { font-size: 17px; }
 .hero-widget .options { margin-top: 10px; }
+.completed{
+    background-color:#dff0d8;
+}

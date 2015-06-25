@@ -71,7 +71,8 @@
                                 <a href="#/" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-fw"></i> {{session.username}}<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li ng-cloak ng-if="session.data.is_admin > 0" ng-class="currentPage=='admin'?'active':''"><a href="#/admin"><i class="fa fa-cog fa-spin"></i> Adminpanel</a></li>
-                                    <li><a href="#"><i class="fa fa-cog fa-edit"></i> Bearbeiten</a></li>
+                                    <li><a style="cursor:pointer;" ng-click="toggleSettingsModal();"><i class="fa fa-edit"></i> Bearbeiten</a></li>
+                                    <li><a style="cursor:pointer;" ng-click="toggleLastOrdersModal();"><i class="fa fa-search"></i> Letzte Bestellungen</a></li>
                                     <li class="divider"></li>
                                     <li><a style="cursor:pointer" ng-click="logout();"><i class="fa fa-sign-out"></i> logout</a></li>
                                 </ul>
@@ -108,7 +109,7 @@
                         </div>
                         <div class="col-lg-6">
                             <ul class="list-inline banner-social-buttons">
-                                <li style="margin:10px;"><a href="#/"  class="btn btn-default btn-lg" target="_blank"><i class="fa fa-home fa-fw"></i> <span class="network-name">Home</span></a>
+                                <li style="margin:10px;"><a href="#/"  class="btn btn-default btn-lg"><i class="fa fa-home fa-fw"></i> <span class="network-name">Home</span></a>
                                 </li>
                                 <li style="margin:10px;"><a href="#/menu" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-cutlery"></i> <span class="network-name">Bestellen</span></a>
                                 </li>
@@ -320,6 +321,85 @@
     </modal>
 
 
+
+    <modalsm title="Übersicht" visible="indicators.settingsModal">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <form role="form">
+                    <h2><small>Persönliche Daten</small></h2>
+                    <hr>
+                    <div class="form-group">
+                        <input type="text" ng-model="userData.username" class="form-control input-sm" placeholder="Benutzername">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="userData.email" class="form-control input-sm" placeholder="Email Addresse">
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" ng-model="userData.first_name" class="form-control input-sm" placeholder="Vorname">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" ng-model="userData.last_name" class="form-control input-sm" placeholder="Nachname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-10 col-sm-10 col-md-10">
+                            <div class="form-group">
+                                <input type="text" ng-model="userData.street_name" class="form-control input-sm" placeholder="Straße">
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="form-group">
+                                <input type="text" ng-model="userData.street_number" class="form-control input-sm" placeholder="Nr.">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <input type="text" ng-model="userData.zip" class="form-control input-sm" placeholder="Postleitzahl">
+                            </div>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <div class="form-group">
+                                <input type="text" ng-model="userData.location" class="form-control input-sm" placeholder="Ort">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="userData.phone" class="form-control input-sm" placeholder="Telefonnummner">
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <btn class="btn btn-sm btn-primary btn-block"><i class="fa fa-edit"></i> Speichern</btn>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+     </modalsm>
+
+
+
+    <modalsm title="Letzte Bestellungen" visible="indicators.lastOrdersModal">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <ul class="list-group" ng-repeat="order in lastOrders">
+                    <li class="list-group-item" ng-class="order.completed > 0 ? 'completed': ''">
+                        <span>Bestellt am: {{order.time*1000 | date:'dd.MM.yyyy'}} um {{order.time*1000 | date:'HH:mm'}} Uhr Für {{order.order_price}}€</span>
+                        <span ng-cloak class="label label-success pull-right" ng-if="order.completed > 0">Lieferung abgeschlossen</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </modalsm>
+
     <!--dependent scripts-->
     <script src="src/js/angular-route.js"></script>
     <script src="src/js/jquery-1.11.1.min.js"></script>
@@ -331,5 +411,6 @@
     <script src="application/factories.js"></script>
     <script src="src/js/ui-bootstrap-0.11.2.min.js"></script>
     <script src="src/js/toastr.js"></script>
+    <script src="src/js/highcharts.js"></script>
 </body>
 </html>

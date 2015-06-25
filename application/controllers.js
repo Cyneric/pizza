@@ -225,6 +225,26 @@ console.log(tmp);
             });
     }
 
+    $scope.indicators.settingsModal = false;
+    $scope.toggleSettingsModal = function(){
+        $scope.indicators.settingsModal = !$scope.indicators.settingsModal;
+        $http.get('http://'+$location.host()+'/pizza/backend/IndexController.php?getUserData').
+            success(function(data) {
+                $rootScope.userData = data;
+                console.log(data);
+            });
+    }
+
+    $scope.indicators.lastOrdersModal = false;
+    $scope.toggleLastOrdersModal = function(){
+        $scope.indicators.lastOrdersModal = !$scope.indicators.lastOrdersModal;
+        $http.get('http://'+$location.host()+'/pizza/backend/IndexController.php?getUsersLastOrders').
+            success(function(data) {
+                $rootScope.lastOrders = data;
+                console.log(data);
+            });
+    }
+
 }]);
 
 
@@ -414,6 +434,130 @@ app.controller('ordersCtrl', ['$scope', '$rootScope', '$http', '$location', func
             success(function(data) {
                 $scope.fetchOrders();
             });
+    }
+
+}]);
+
+
+//statistics controller
+app.controller('statisticsCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location){
+
+    if($scope.session.data.is_admin < 1){
+        $location.path('/');
+    }
+
+    $rootScope.setCurrentPage('admin');
+    $scope.data = [];
+
+    $scope.fetchStatisticsData = function(){
+        $http.get('http://'+$location.host()+'/pizza/backend/StatisticsController.php?fetchStatisticsData').
+            success(function(data) {
+                console.log(data);
+                $scope.data.statistics = data;
+                $scope.drawChart();
+            });
+    }
+
+    $scope.fetchStatisticsData();
+
+    //highcharts configuration
+    $scope.drawChart = function(){
+
+        $(function () {
+
+            $(document).ready(function () {
+
+                // Build the chart
+                $('#statistic').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    title: {
+                        text: 'Verkaufte Artikel nach Kategorie'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name} {point.y} stk. - <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: "Anteil",
+                        colorByPoint: true,
+                        data: $scope.data.statistics.articles
+                    }]
+                });
+            });
+        });
+
+
+        $(function () {
+
+            // Make monochrome colors and set them as default for all pies
+            Highcharts.getOptions().plotOptions.pie.colors = (function () {
+                var colors = [],
+                    base = Highcharts.getOptions().colors[0],
+                    i;
+
+                for (i = 0; i < 10; i += 1) {
+                    // Start out with a darkened base color (negative brighten), and end
+                    // up with a much brighter color
+                    colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
+                }
+                return colors;
+            }());
+
+            // Build the chart
+            $('#ingredients').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Verbrauchte Zutaten'
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: '{series.name} {point.y} stk. - <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: "Zutaten",
+                    colorByPoint: true,
+                    data: $scope.data.statistics.ingredients
+                }]
+            });
+        });
+
     }
 
 }]);
