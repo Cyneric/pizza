@@ -362,7 +362,7 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
 //admin controller
 app.controller('adminCtrl', ['$scope', '$rootScope', '$http', '$location', '$interval', function($scope, $rootScope, $http, $location, $interval){
 
-    if($scope.session.data.is_admin < 1){
+    if($scope.session && $scope.session.data && $scope.session.data.is_admin < 1){
         $location.path('/');
     }
 
@@ -391,7 +391,7 @@ app.controller('adminCtrl', ['$scope', '$rootScope', '$http', '$location', '$int
 //orders controller
 app.controller('ordersCtrl', ['$scope', '$rootScope', '$http', '$location', '$interval', function($scope, $rootScope, $http, $location, $interval){
 
-    if($scope.session.data.is_admin < 1){
+    if($scope.session && $scope.session.data && $scope.session.data.is_admin < 1){
         $location.path('/');
     }
 
@@ -456,7 +456,7 @@ app.controller('ordersCtrl', ['$scope', '$rootScope', '$http', '$location', '$in
 //statistics controller
 app.controller('statisticsCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location){
 
-    if($scope.session.data.is_admin < 1){
+    if($scope.session && $scope.session.data && $scope.session.data.is_admin < 1){
         $location.path('/');
     }
 
