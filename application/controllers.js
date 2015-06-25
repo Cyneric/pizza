@@ -360,7 +360,7 @@ app.controller('menuCtrl', ['$scope', '$rootScope', '$http', '$location', functi
 }]);
 
 //admin controller
-app.controller('adminCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location){
+app.controller('adminCtrl', ['$scope', '$rootScope', '$http', '$location', '$interval', function($scope, $rootScope, $http, $location, $interval){
 
     if($scope.session.data.is_admin < 1){
         $location.path('/');
@@ -379,10 +379,15 @@ app.controller('adminCtrl', ['$scope', '$rootScope', '$http', '$location', funct
 
     $scope.fetchOverviewData();
 
+    $interval( function(){
+        $scope.fetchOverviewData();
+        console.log("polling new data");
+    }, 5000);
+
 }]);
 
 //orders controller
-app.controller('ordersCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location){
+app.controller('ordersCtrl', ['$scope', '$rootScope', '$http', '$location', '$interval', function($scope, $rootScope, $http, $location, $interval){
 
     if($scope.session.data.is_admin < 1){
         $location.path('/');
@@ -404,6 +409,11 @@ app.controller('ordersCtrl', ['$scope', '$rootScope', '$http', '$location', func
     }
 
     $scope.fetchOrders();
+
+    $interval( function(){
+        $scope.fetchOrders();
+        console.log("polling new data");
+    }, 5000);
 
     $scope.showOrderDetails = function(id){
         $http.get('http://'+$location.host()+'/pizza/backend/OrderController.php?fetchOrderDetails&id='+id).
